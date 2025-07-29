@@ -662,7 +662,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// clean
+// mvn clean
 // - Deletes the target/ folder (i.e., old compiled files)
 // - Ensures a fresh build
 // - Removes previously compiled .class files, old .jar files, etc.
@@ -670,7 +670,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// install
+// mvn install
 // - Compiles, runs tests, and packages your app Then it installs the .jar or .war into your
 //   local Maven repository (~/.m2)
 
