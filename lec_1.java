@@ -506,91 +506,337 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 3. Aspect-Oriented Programming (AOP)
-// - Aspect-Oriented Programming is a programming paradigm that allows you to isolate cross-cutting
-//   concerns from your main business logic.
+// 3. What is Aspect-Oriented Programming (AOP)?
+// - Aspect-Oriented Programming (AOP) is a programming paradigm that allows you to separate
+//   cross-cutting concerns from your main business logic.
 
-// Note:- paradigm means a typical example or pattern of something.
+// - Cross-Cutting Concerns are functionalities that are used across multiple modules of an 
+//   application, such as:
 
-// - Cross-cutting concern:- Code that spreads across multiple classes and modules but is not
-//   the core business logic. 
+// A. Logging
+// B. Security
+// C. Transactions
+// D. Performance monitoring
+// E. Caching
 
-// Examples:- Logging, Security, Transactions, Caching, etc.
+// ---------------------------------------------------------------------------------------
 
-// - Instead of scattering this logic across multiple classes (leading to code duplication and
-//   tight coupling), AOP enables you to define it in one place and apply it transparently 
-//   wherever needed.
+// Why Use AOP?
+
+// | Without AOP                                        | With AOP                                      |
+// | -------------------------------------------------- | --------------------------------------------- |
+// | Logging/security code is mixed with business logic | Cross-cutting logic is separated into aspects |
+// | Harder to read and maintain code                   | Cleaner, modular code                         |
+// | Code repetition across multiple classes            | Centralized logic in one aspect               |
+
+// ---------------------------------------------------------------------------------------
+
+// Core Concepts of AOP
+
+// | Term           | Meaning                                                                |
+// | -------------- | ---------------------------------------------------------------------- |
+// | **Aspect**     | A module/class that contains cross-cutting logic (e.g., LoggingAspect) |
+// | **Join Point** | A specific point in program execution (e.g., method call)              |
+// | **Advice**     | Action taken at a join point (e.g., method that logs data)             |
+// | **Pointcut**   | Expression that matches join points (e.g., all methods in a package)   |
+// | **Weaving**    | Linking aspects with other code at runtime                             |
+// | **Target**     | The object being advised (the actual business class)                   |
+
+// ---------------------------------------------------------------------------------------
+
+// Types of Advice in Spring AOP
+
+// | Advice Type       | Description                                                  |
+// | ----------------- | ------------------------------------------------------------ |
+// | `@Before`         | Runs **before** the method execution                         |
+// | `@After`          | Runs **after** the method execution (finally block)          |
+// | `@AfterReturning` | Runs **after method returns successfully**                   |
+// | `@AfterThrowing`  | Runs **after method throws an exception**                    |
+// | `@Around`         | Runs **before and after** the method (can control execution) |
+
+// ---------------------------------------------------------------------------------------
+
+// Spring AOP Example
+
+// Step 1:- Add Aspect Dependency (for Spring Boot)
+
+// <!-- pom.xml -->
+// <dependency>
+//     <groupId>org.springframework.boot</groupId>
+//     <artifactId>spring-boot-starter-aop</artifactId>
+// </dependency>
+
+
+// Step 2:- Business Class (Target)
+
+// @Component
+// public class PaymentService {
+//     public void processPayment() {
+//         System.out.println("Processing payment...");
+//     }
+// }
+
+
+// Step 3:- Aspect Class
+
+// @Aspect
+// @Component
+// public class LoggingAspect {
+
+//     @Before("execution(* com.example.PaymentService.*(..))")
+//     public void logBefore() {
+//         System.out.println("Logging BEFORE method execution");
+//     }
+
+//     @After("execution(* com.example.PaymentService.*(..))")
+//     public void logAfter() {
+//         System.out.println("Logging AFTER method execution");
+//     }
+// }
+
+
+// Step 4:- Enable AspectJ Support
+
+// @Configuration
+// @EnableAspectJAutoProxy
+// public class AppConfig {}
+
+
+// Output:-
+// Logging BEFORE method execution
+// Processing payment...
+// Logging AFTER method execution
+
+// ---------------------------------------------------------------------------------------
+
+// What Happens Internally?
+// - Spring uses proxy objects (via JDK dynamic proxy or CGLIB) to apply aspects around your
+//   actual beans.
+
+// ---------------------------------------------------------------------------------------
+
+// Example Use Cases
+// - Automatically log every request/response in a controller
+// - Apply security checks before method execution
+// - Roll back transactions on exceptions
 
 // ---------------------------------------------------------------------------------------
 
 // 4. Spring MVC
-// - Spring MVC is a Java-based framework used to build web applications using the Model-View-
-//   Controller design pattern.
+// - Spring MVC is a web framework built on the Spring Framework.
 
-// - It separates the application into three layers:
-// A. Model:– Business logic and data.
-// B. View:– What the user sees (UI).
-// C. Controller:– Handles user input and updates the model and view.
+// - It follows the Model-View-Controller design pattern to develop flexible, maintainable, and
+//   testable web applications.
 
 // ---------------------------------------------------------------------------------------
 
-// 5. Transaction Management
-// - Transaction Management in Spring Framework is one of its most powerful features, allowing
-//   you to manage database transactions declaratively or programmatically — ensuring data
-//   integrity and consistency in enterprise-level applications.
+// MVC Pattern Overview
 
-// Note:- "Declaratively" means in a way that makes a statement, announces something, or
-//        explains something.
+// | Component      | Role                                                             |
+// | -------------- | ---------------------------------------------------------------- |
+// | **Model**      | Holds the business data and logic (e.g., Java classes, services) |
+// | **View**       | Displays data (e.g., HTML, JSP, Thymeleaf)                       |
+// | **Controller** | Handles user input, calls model, and returns view                |
 
-// Note:- Data integrity refers to the accuracy, consistency, and reliability of data 
-//        throughout its lifecycle. 
+// Note:- In Spring MVC, the controller handles web requests and delegates to services (model), then
+//        returns a view to display the result.
+
+// ---------------------------------------------------------------------------------------
+
+// Spring MVC Request Flow
+
+// Client (Browser) → DispatcherServlet → Controller → Service → DAO → DB
+//                                        ↓
+//                                 View Resolver → View (HTML/JSP)
+
+
+// ---------------------------------------------------------------------------------------
+
+// Core Components in Spring MVC
+
+// | Component           | Description                                                   |
+// | ------------------- | ------------------------------------------------------------- |
+// | `DispatcherServlet` | Front controller – receives all HTTP requests and routes them |
+// | `Controller`        | Handles request, processes data, and returns the view name    |
+// | `Service`           | Contains business logic (optional but recommended)            |
+// | `Model`             | Used to send data from controller to view                     |
+// | `View Resolver`     | Maps logical view names to actual views (e.g., .jsp, .html)   |
+// | `View`              | Page shown to the user (HTML/JSP/Thymeleaf)                   |
+
+// ---------------------------------------------------------------------------------------
+
+// Example:- Simple Spring MVC Setup
+
+// Step 1:- Add Dependencies (for Spring Boot MVC)
+
+// <dependency>
+//     <groupId>org.springframework.boot</groupId>
+//     <artifactId>spring-boot-starter-web</artifactId>
+// </dependency>
+
+
+// Step 2:- Create Controller
+
+// @Controller
+// public class HelloController {
+
+//     @GetMapping("/hello")
+//     public String sayHello(Model model) {
+//         model.addAttribute("message", "Hello from Spring MVC!");
+//         return "hello";  // Logical view name (hello.html)
+//     }
+// }
+
+
+// Step 3:- Create View (hello.html – using Thymeleaf)
+
+// <!DOCTYPE html>
+// <html xmlns:th="http://www.thymeleaf.org">
+// <head>
+//     <title>Hello</title>
+// </head>
+// <body>
+//     <h1 th:text="${message}"></h1>
+// </body>
+// </html>
+
+
+// Step 4:- Application Entry Point
+
+// @SpringBootApplication
+// public class MvcApp {
+//     public static void main(String[] args) {
+//         SpringApplication.run(MvcApp.class, args);
+//     }
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Annotations Used in Spring MVC
+
+// | Annotation        | Purpose                                         |
+// | ----------------- | ----------------------------------------------- |
+// | `@Controller`     | Marks class as a web controller                 |
+// | `@GetMapping`     | Maps GET requests to methods                    |
+// | `@PostMapping`    | Maps POST requests                              |
+// | `@RequestParam`   | Binds request parameters                        |
+// | `@ModelAttribute` | Binds form data to model object                 |
+// | `@ResponseBody`   | Sends method return as HTTP response (for REST) |
+// | `@RestController` | Shortcut for `@Controller + @ResponseBody`      |
+
+// ---------------------------------------------------------------------------------------
+
+// Features of Spring MVC
+// 1. Clean separation of concerns
+// 2. Built-in REST API support
+// 3. Integration with view technologies (JSP, Thymeleaf)
+// 4. Easy form handling and validation
+// 5. Annotation-based configuration
+
+// ---------------------------------------------------------------------------------------
+
+// 5. What is a Transaction?
+// - A transaction is a sequence of operations performed as a single unit of work.
+// - It must follow the ACID properties:
+
+// | Property            | Meaning                                      |
+// | ------------------- | -------------------------------------------- |
+// | **A** – Atomicity   | All operations succeed or none do            |
+// | **C** – Consistency | The system remains in a valid state          |
+// | **I** – Isolation   | Transactions don’t interfere with each other |
+// | **D** – Durability  | Once committed, data is saved permanently    |
+
+// ---------------------------------------------------------------------------------------
+
+// Why Transaction Management is Needed?
+
+// - In a banking app:
+// withdrawFromAccountA();
+// depositToAccountB();
+
+
+// Note:-
+// 1. If withdrawal succeeds and deposit fails – money disappears.
+// 2. To avoid such issues, both must succeed or fail together → that’s a transaction.
+
+// ---------------------------------------------------------------------------------------
+
+// How Spring Manages Transactions
+// - Spring provides declarative and programmatic transaction management:
+
+// | Type             | Description                                      |
+// | ---------------- | ------------------------------------------------ |
+// | **Declarative**  | Recommended. Uses annotations (`@Transactional`) |
+// | **Programmatic** | Manually managing transactions in code           |
 
 // ---------------------------------------------------------------------------------------
 
 // 6. Spring Security
-// - Spring Security is a powerful and highly customizable security framework for Java applications.
-// - It helps you add features like:
+// - Spring Security is a powerful and customizable framework for authentication, authorization,
+//   and protection against common security threats in Java applications.
 
-// A. Authentication:– Who are you? (e.g., login)
-// B. Authorization:– What are you allowed to do? (e.g., access control)
-// C. Protection against common attacks (like CSRF, XSS, and session fixation)
+// - It is the standard security framework used in Spring Boot / Spring MVC applications.
+
+// ---------------------------------------------------------------------------------------
+
+// Key Features of Spring Security
+
+// | Feature                 | Description                                   |
+// | ----------------------- | --------------------------------------------- |
+// | **Authentication**      | Verifying **who** the user is (login)         |
+// | **Authorization**       | Verifying **what** the user can access        |
+// | **Session Management**  | Controlling login/logout and user sessions    |
+// | **Password Encoding**   | Secures stored passwords (e.g., BCrypt)       |
+// | **CSRF Protection**     | Prevents Cross-Site Request Forgery           |
+// | **Security Headers**    | Protects against common browser attacks       |
+// | **Integration Support** | Works with databases, JWT, OAuth2, LDAP, etc. |
 
 // ---------------------------------------------------------------------------------------
 
 // 7. Spring Boot
-// - Spring Boot is a framework built on top of the Spring Framework that makes it easy and fast to
-//   build standalone, production-ready Java applications — especially web applications and REST APIs.
+// - Spring Boot is a framework built on top of Spring that makes it easy to create stand-alone,
+//   production-ready Spring applications with minimal configuration.
 
-// - In short: Spring Boot = Spring made easy and automatic.
-
-// ---------------------------------------------------------------------------------------
-
-// Why Use Spring Boot?
-
-// | Feature                        | Benefit                                    |
-// | ------------------------------ | ------------------------------------------ |
-// | No XML Configuration           | Uses Java annotations instead              |
-// | Auto Configuration             | Spring Boot configures many things for you |
-// | Embedded Web Servers           | Run your app without needing Tomcat setup  |
-// | Built-in Testing Support       | Easier to write and run tests              |
-// | Easy Dependency Management     | Uses Spring Boot Starter POMs              |
-// | Create JARs with everything    | One-click run: `java -jar app.jar`         |
+// - Spring Boot simplifies the setup, development, and deployment of Spring applications by
+//   eliminating boilerplate configuration.
 
 // ---------------------------------------------------------------------------------------
 
-// Spring vs Spring Boot
+// Why Spring Boot?
 
-// | Feature                 | Spring Framework                  | Spring Boot                              |
-// | ----------------------- | --------------------------------- | ---------------------------------------- |
-// | Configuration           | Manual, XML or Java-based         | Auto-configuration (minimal setup)       |
-// | Startup Time            | Slower (due to manual setup)      | Faster (auto-configured)                 |
-// | Embedded Server Support | No (you need to deploy on Tomcat) | Yes (Tomcat/Jetty embedded)              |
-// | Dependencies            | You add one-by-one                | Uses **starter** dependencies            |
-// | XML Configuration       | Often required                    | Not required (uses annotations)          |
-// | Project Structure       | You define it manually            | Spring Initializr gives ready-to-run app |
-// | Focus                   | Flexibility and customization     | Simplicity and productivity              |
-// | Application Startup     | Needs external server (WAR file)  | Runs as standalone JAR (`java -jar`)     |
-// | Testing Support         | Manual setup                      | Auto-includes JUnit, Mockito, etc.       |
+// | Problem in Traditional Spring | Spring Boot Solution                          |
+// | ----------------------------- | --------------------------------------------- |
+// | Lots of XML/config files      | Auto Configuration                            |
+// | Manually configuring servers  | Embedded web servers (Tomcat, Jetty)          |
+// | Long setup time               | Faster setup with starter templates           |
+// | Hard to package & deploy      | Create runnable `.jar` with `main()` method   |
+
+// ---------------------------------------------------------------------------------------
+
+// Key Features of Spring Boot
+
+// | Feature                  | Description                                                      |
+// | ------------------------ | ---------------------------------------------------------------- |
+// | **Auto Configuration**   | Automatically configures beans based on classpath and properties |
+// | **Starter Dependencies** | Predefined dependency sets (e.g., `spring-boot-starter-web`)     |
+// | **Embedded Server**      | Tomcat/Jetty/Undertow embedded – no external server needed       |
+// | **Spring Boot CLI**      | Run Spring apps with command line                                |
+// | **Actuator**             | Built-in endpoints for health, metrics, etc.                     |
+// | **DevTools**             | Enables hot reload and development features                      |
+
+// ---------------------------------------------------------------------------------------
+
+// Spring Boot Application Structure
+
+// MyApp/
+// ├── src/
+// │   └── main/
+// │       ├── java/
+// │       │   └── com/example/
+// │       │       └── MyAppApplication.java
+// │       └── resources/
+// │           ├── application.properties
+// │           └── templates/  (for HTML)
 
 // ---------------------------------------------------------------------------------------
 
@@ -674,6 +920,8 @@
 //         SpringApplication.run(StudentApiApplication.class, args);
 //     }
 // }
+
+// Note:- @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
 
 // ---------------------------------------------------------------------------------------
 
@@ -817,6 +1065,8 @@
 
 // Add Your First Controller (REST API)
 // - In com.example.demo.controller, create: "HelloController" file
+
+// Example:-
 
 // package com.example.demo.controller;
 
