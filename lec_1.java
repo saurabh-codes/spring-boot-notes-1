@@ -6,9 +6,11 @@
 // - Its main goal is to simplify the setup, configuration, and development of Spring-based
 //   applications by providing:
 
+// ---------------------------------------------------------------------------------------
+
 // 1. Auto Configuration:- 
 // - Automatically configures Spring application based on the dependencies you add
-//  (no need for a lot of XML or Java configuration).
+//   (no need for a lot of XML or Java configuration).
 
 // ---------------------------------------------------------------------------------------
 
@@ -34,7 +36,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// Example Project Structure (Spring Boot Web App)
+// Example Project Structure (Spring Boot Web App):-
 
 // src/
 //  └── main/
@@ -50,7 +52,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-//  Sample Code:- in Main Class file
+// Sample Code:- in Main Class file
 
 // @SpringBootApplication
 // public class DemoApplication {
@@ -73,198 +75,355 @@
 
 // ---------------------------------------------------------------------------------------
 
-// Features of Spring Framework
+// ---------- Features of Spring Framework ----------
 
+// ---------------------------------------------------------------------------------------
 // 1. Inversion of Control (IoC)
-// - The IoC container manages the lifecycle and configuration of application objects (beans), making
-//   it easier to manage dependencies and object creation.
+// - IoC (Inversion of Control) in Spring refers to the design principle where the control of object
+//   creation and dependency management is given to the Spring Container.
 
-// Note:- IoC object ko create karta hai and uske lifecycle ko manage karta hai and object ko
-//        hum 'bean' bolte hai spring framework mey. jo ki spring container handle karta hai.
-
-// - The terms Spring Container and IoC (Inversion of Control) are closely related in the Spring
-//   Framework, but they are not the same thing.
-
-// Note:- IoC is responsible for creating and managing beans.
+// - Instead of manually instantiating classes and managing dependencies, Spring handles it 
+//   automatically.
 
 // ---------------------------------------------------------------------------------------
 
-// IoC (Inversion of Control):-
-// - Concept/Principle, not a component.
+// How Spring Uses IoC
+// - Spring implements IoC using Dependency Injection (DI).
 
-// - It means the control of object creation and dependency management is inverted from the 
-//   programmer to the framework (Spring).
-
-// - Instead of writing code to create objects and wire dependencies, you tell Spring what you
-//   need, and Spring injects dependencies automatically.
-
-// - Implemented by: Spring Container.
-
-// - Think of IoC as the idea or design pattern.
+// - When your application starts:
+// A. Spring creates all the required objects (called beans).
+// B. It injects dependencies (other beans) into them automatically.
+// C. You just define what needs to be injected, not how or when.
 
 // ---------------------------------------------------------------------------------------
 
-// Spring Container:-
-// - Actual implementation of IoC in Spring.
+// Example without Spring IoC (manual dependency):-
 
-// - It's the core of the Spring Framework that manages the lifecycle, configuration, and 
-//   dependencies of beans (objects).
-
-// - Reads configuration from:
-// 1. applicationContext.xml (XML)
-// 2. Java annotations (@Component, @Autowired, etc.)
-// 3. Java-based configuration (@Configuration, @Bean)
-
-// - Types of containers:
-// 1. BeanFactory (basic container)
-
-// 2. ApplicationContext (advanced container with more features like internationalization, event
-//    propagation, etc.)
-
-// - Think of Spring Container as the tool or engine that executes the IoC principle.
-
-// ---------------------------------------------------------------------------------------
-
-// | Feature         | IoC (Inversion of Control)           | Spring Container                             |
-// | --------------- | ------------------------------------ | -------------------------------------------- |
-// | Type            | Concept/Design Principle             | Concrete implementation in Spring            |
-// | Role            | Delegates control to framework       | Manages beans and dependencies               |
-// | Responsible for | Guiding how dependencies are handled | Actually creating and injecting dependencies |
-// | Example         | Don't create objects manually        | Use `ApplicationContext.getBean()`           |
-// | Part of Spring? | Yes (core principle)                 | Yes (core framework component)               |
-
-// ---------------------------------------------------------------------------------------
-
-// Note:- If IoC is the recipe, then the Spring Container is the chef who follows the recipe
-//        and does all the work for you.
-
-// Benefits:- Loose Coupling, Testability, Reuseability, Modular Design.
-
-// - Modular Design is a design approach where a complex system is broken down into 
-//   smaller, independent, and interchangeable parts called modules.
-
-// ---------------------------------------------------------------------------------------
-
-// - We can define the beans and their dependencies in a configuration file (using annotations,
-//   XML, or JavaConfig), and the IoC container handles the instantiation of these beans.
-
-// Note:- instantiation means represent as or by an instance.
-
-// ---------------------------------------------------------------------------------------
-
-// 2. Dependency Injection
-// - DI is a way to inject the dependencies rather then having to create or manage them
-//   explicitly.
-
-// - it is achieved through spring Ioc container which is responsible for creating and 
-//   managing objects known as beans.
-
-// Note:- DI part hai IoC ka, Ioc ke through hi hum DI achieve kar sakte hai.
-
-// Note:- In Java, an instance variable is a variable declared within a class but outside of
-//        any method, constructor, or block. It is also known as a non-static field.
-
-// Note:- DI is responsible for injecting the created beans into other beans where they
-//        are needed.
-
-// ---------------------------------------------------------------------------------------
-
-// Example:- Without Spring or IoC
-
-// class Engine {
-//     public void start() {
-//         System.out.println("Engine started");
+// class Service {
+//     void serve() {
+//         System.out.println("Service running");
 //     }
 // }
 
-// class Car{
-//     private Engine engine;
-// //  Note:- Car has a dependency: an instance of the Engine class.
+// class Client {
+//     Service service = new Service();  // tightly coupled
 
-//     public Car(){
-//         this.engine = new Engine()
-// //      Note:- A new Engine object is created inside the Car.
-// //      Note:- This means Car is responsible for creating its own dependency (Engine).
-//     }
-
-//     public void start(){
-//         engine.start();
-// //      Note:- This method tells the car to start.
-
-// //      Note:- It internally calls engine.start() — which means it delegates the starting
-// //             action to its Engine.
+//     void doWork() {
+//         service.serve();
 //     }
 // }
+
+// Problem:- Tight coupling. Hard to test and replace dependencies.
 
 // ---------------------------------------------------------------------------------------
 
-// Example:- Better Way Using IoC (Constructor Injection Example)
+// Example using Spring IoC:-
 
-// class Engine {
-//     public void start() {
-//         System.out.println("Engine started");
+// @Component
+// class Service {
+//     void serve() {
+//         System.out.println("Service running");
 //     }
 // }
 
+// @Component
+// class Client {
+//     @Autowired
+//     private Service service;
+
+//     void doWork() {
+//         service.serve();
+//     }
+// }
+
+
+// Note:- Spring Container Automatically creates objects of Service and Client. Injects Service
+//        into Client.
+
+// ---------------------------------------------------------------------------------------
+
+// How Spring knows what to inject?
+// - @Component → Marks class as a Spring-managed bean.
+// - @Autowired → Tells Spring to inject the dependency automatically.
+// - Spring uses reflection to inject dependencies.
+
+// ---------------------------------------------------------------------------------------
+
+// Benefits of IoC in Spring
+// - Loose coupling
+// - Easier unit testing
+// - Better code organization
+// - Easier to manage large applications
+// - Objects managed by container (life cycle, scope, etc.)
+
+// ---------------------------------------------------------------------------------------
+
+// Spring IoC Container Types
+
+// 1. BeanFactory:- Basic container, lazy initialization.
+
+// 2. ApplicationContext:- Advanced container (used commonly), supports:
+// A. Internationalization
+// B. Event propagation
+// C. AOP
+// D. Dependency injection
+
+// ---------------------------------------------------------------------------------------
+
+// | Concept                  | Description                                |
+// | ------------------------ | ------------------------------------------ |
+// | **IoC**                  | Spring controls object creation and wiring |
+// | **Dependency Injection** | Method used to implement IoC               |
+// | **Bean**                 | Object managed by Spring container         |
+// | **@Component/@Service**  | Tell Spring to create beans                |
+// | **@Autowired**           | Tell Spring to inject dependencies         |
+
+// ---------------------------------------------------------------------------------------
+
+// 2. Spring Container
+// - The Spring Container is the core of the Spring Framework.
+
+// - It is responsible for:
+// 1. Creating objects (called beans)
+// 2. Managing the lifecycle of those beans
+// 3. Injecting dependencies (Dependency Injection)
+// 4. Configuring beans using annotations or XML
+
+// Note:- Spring Container is the implementation of the IoC principle in Spring.
+
+// ---------------------------------------------------------------------------------------
+
+// Responsibilities of Spring Container
+
+// | Responsibility         | Description                                             |
+// | ---------------------- | ------------------------------------------------------- |
+// | Bean Creation          | Creates objects (beans) from your classes.              |
+// | Dependency Injection   | Injects required dependencies into beans.               |
+// | Bean Lifecycle         | Manages initialization, destruction, and scopes.        |
+// | Configuration Handling | Reads annotations, XML, or Java config to set up beans. |
+// | Object Lookup          | Provides beans when needed (via `getBean()` method).    |
+
+// ---------------------------------------------------------------------------------------
+
+// Types of Spring Containers
+// 1. BeanFactory:- 
+// - Basic container, lazy initialization, lower memory usage.
+// - Interface/Class: org.springframework.beans.factory.BeanFactory
+
+// 2. ApplicationContext:-
+// - Advanced container. Used in most Spring applications.
+// - Interface/Class: org.springframework.context.ApplicationContext
+
+// ---------------------------------------------------------------------------------------
+
+// ApplicationContext vs BeanFactory
+
+// | Feature              | `ApplicationContext` | `BeanFactory`       |
+// | -------------------- | -------------------- | ------------------- |
+// | Dependency Injection | Yes                  | Yes                 |
+// | Eager Initialization | (default)            | (lazy by default)   |
+// | Internationalization | Supports i18n        | No                  |
+// | Event Publishing     | Built-in             | No                  |
+// | Use in Spring Boot   | Commonly used        | Rarely used         |
+
+// ---------------------------------------------------------------------------------------
+
+// How Spring Container Works (Simplified Flow)
+// 1. Spring starts.
+// 2. It scans for components or reads XML/Java config.
+// 3. It creates bean objects.
+// 4. It resolves and injects dependencies.
+// 5. It manages lifecycle (init/destroy).
+// 6. You use the bean from the container.
+
+// ---------------------------------------------------------------------------------------
+
+// Example Using AnnotationConfigApplicationContext:-
+
+// @Configuration
+// @ComponentScan("com.example")
+// class AppConfig {}
+
+// @Component
 // class Car {
-//     private Engine engine;
-
-//  // Note:- The engine is injected by the framework, not controlled by the car class.
-//     public Car(Engine engine) {
-//         this.engine = engine;  // Engine is injected from outside
-//     }
-
-//     public void start() {
-//         engine.start();
+//     void drive() {
+//         System.out.println("Car is driving...");
 //     }
 // }
 
-// Note:- Now, Car does not create the Engine itself. The engine is injected, which follows 
-//        the IoC principle.
+// public class Main {
+//     public static void main(String[] args) {
+//         ApplicationContext context = 
+//             new AnnotationConfigApplicationContext(AppConfig.class);
+
+//         Car car = context.getBean(Car.class);
+//         car.drive();
+//     }
+// }
+
+
+// Note:-
+// 1. @Component → Marks the class as a bean.
+// 2. @Configuration → Marks class as configuration class.
+// 3. @ComponentScan → Tells Spring where to look for components.
+
+// ---------------------------------------------------------------------------------------
+
+// What is Reflection in Java?
+// - Reflection is a feature in Java that allows a program to inspect and modify its own 
+//   structure at runtime, including:
+
+// 1. Classes
+// 2. Methods
+// 3. Constructors
+// 4. Fields (variables)
+
+// - Reflection is part of the java.lang.reflect package.
+
+// ---------------------------------------------------------------------------------------
+
+// What does Dependency Injection mean in Spring?
+// - Dependency Injection (DI) means Spring automatically provides the required object 
+//   (dependency) to a class.
+
+// ---------------------------------------------------------------------------------------
+
+// Example:-
+
+// @Component
+// class Engine {}
+
+// @Component
+// class Car {
+//     @Autowired
+//     Engine engine; // Spring will inject this
+// }
+
+// Note:-
+// 1. You never write: engine = new Engine();
+// 2. Spring does it for you, behind the scenes.
+
+// ---------------------------------------------------------------------------------------
+
+// So How Does Spring Inject It?
+// - Spring uses Java Reflection to:
+
+// 1. Find the field or method marked with @Autowired
+// 2. Bypass access modifiers (even if it's private)
+// 3. Set the value of that field or call that method
+
+// ---------------------------------------------------------------------------------------
+
+// Example:- Step-by-Step: How Spring Uses Reflection
+
+// @Component
+// class Service {}
+
+// @Component
+// class Client {
+//     @Autowired
+//     private Service service;
+// }
+
+
+// Note:- 
+// - Behind the scenes, Spring does:
+// 1. Loads Client class using reflection.
+// 2. Scans for fields/methods annotated with @Autowired.
+// 3. Creates a Service object (bean).
+
+// 4. Uses reflection to access the private service field.
+// Field field = Client.class.getDeclaredField("service");
+// field.setAccessible(true); // allow access to private field
+// field.set(clientObject, serviceObject);
+
+// 5. Now service is injected into Client.
+
+// ---------------------------------------------------------------------------------------
+
+// Why Use Reflection?
+
+// | Reason                     | Explanation                                       |
+// | -------------------------- | ------------------------------------------------- |
+// | **Runtime flexibility**    | Injects dependencies without changing source code |
+// | **Access private members** | Even private fields/methods can be accessed       |
+// | **Dynamic behavior**       | Works for any class, not just known ones          |
+
+// ---------------------------------------------------------------------------------------
+
+// Security and Performance
+// - Reflection is powerful but can be slower than normal code.
+// - Spring optimizes it with caching.
+// - Also, Spring avoids using reflection too frequently at runtime.
+
+// ---------------------------------------------------------------------------------------
+
+// 2. What is Dependency Injection?
+// - Dependency Injection (DI) is a design pattern where an object receives its dependencies
+//   from an external source rather than creating them itself.
+
+// - In Spring, DI is the way Spring implements IoC (Inversion of Control).
+
+// ---------------------------------------------------------------------------------------
+
+// Real-world Analogy
+// - A car needs an engine to run.
+// - Without DI: the car builds its own engine.
+// - With DI: the engine is given to the car from outside.
+
+// ---------------------------------------------------------------------------------------
+
+// Why Use DI?
+
+// | Without DI                            | With DI (Spring)                     |
+// | ------------------------------------- | ------------------------------------ |
+// | Objects create their own dependencies | Dependencies are provided externally |
+// | Tight coupling                        | Loose coupling                       |
+// | Hard to test                          | Easy to test (mock dependencies)     |
+// | Less flexible                         | More flexible and maintainable       |
+
+// ---------------------------------------------------------------------------------------
+
+// DI in Spring: How it Works
+
+// - Spring:
+// 1. Creates objects (called beans)
+// 2. Identifies dependencies using annotations/configuration
+// 3. Injects them into the correct places using Reflection
 
 // ---------------------------------------------------------------------------------------
 
 // Types of Dependency Injection in Spring
 
-// A. Constructor Injection
-// - Dependencies are passed through the class constructor.
+// | Type                      | Description                                    | Used When                       |
+// | ------------------------- | ---------------------------------------------- | ------------------------------- |
+// | **Constructor Injection** | Dependencies are passed via constructor        | When dependencies are mandatory |
+// | **Setter Injection**      | Dependencies are set via setter methods        | When optional or changeable     |
+// | **Field Injection**       | Dependencies are injected directly into fields | Common with `@Autowired`        |
 
-// Example:-
+// ---------------------------------------------------------------------------------------
+
+// Example:- Constructor Injection
 
 // @Component
-// class Engine {
-//     public void start() {
-//         System.out.println("Engine started");
-//     }
-// }
+// class Engine {}
 
 // @Component
 // class Car {
 //     private Engine engine;
 
-//     @Autowired  // Tells Spring to inject Engine into constructor
+//     @Autowired
 //     public Car(Engine engine) {
 //         this.engine = engine;
-//     }
-
-//     public void startCar() {
-//         engine.start();
 //     }
 // }
 
 // ---------------------------------------------------------------------------------------
 
-// Advantages:-
-// - Good for immutability.
-// - Mandatory dependencies are enforced at object creation time.
-// - Easier to write unit tests.
+// Example:- Setter Injection
 
-// ---------------------------------------------------------------------------------------
-
-// B. Setter Injection
-// - Dependencies are passed through public setter methods.
-
-// Example:-
+// @Component
+// class Engine {}
 
 // @Component
 // class Car {
@@ -274,44 +433,76 @@
 //     public void setEngine(Engine engine) {
 //         this.engine = engine;
 //     }
-
-//     public void startCar() {
-//         engine.start();
-//     }
 // }
 
 // ---------------------------------------------------------------------------------------
 
-// Advantages:-
-// - Good for optional dependencies.
-// - More flexible if object initialization is complex.
+// Example:- Field Injection
 
-// ---------------------------------------------------------------------------------------
-
-// C. Field Injection
-// - Spring injects the dependency directly into the field (no constructor or setter needed).
-
-// Example:-
+// @Component
+// class Engine {}
 
 // @Component
 // class Car {
-
 //     @Autowired
 //     private Engine engine;
-
-//     public void startCar() {
-//         engine.start();
-//     }
 // }
 
 // ---------------------------------------------------------------------------------------
 
-// Caution:-
-// - Easiest to write but less testable.
+// Annotations Used for DI
 
-// - Not recommended for complex or production-grade applications due to:
-// 1. Lack of immutability.
-// 2. Harder to mock during testing.
+// | Annotation   | Purpose                                             |
+// | ------------ | --------------------------------------------------- |
+// | `@Component` | Marks a class as a Spring-managed bean              |
+// | `@Autowired` | Tells Spring to inject the dependency               |
+// | `@Qualifier` | Used to resolve ambiguity when multiple beans exist |
+// | `@Inject`    | Java standard version of `@Autowired`               |
+// | `@Value`     | Injects literal values                              |
+
+// ---------------------------------------------------------------------------------------
+
+// Spring DI Container
+// - DI is handled by the Spring Container (typically ApplicationContext).
+// - It scans the code for beans and injects dependencies automatically.
+
+// ---------------------------------------------------------------------------------------
+
+// Example Code with All Pieces:-
+
+// @Component
+// class Engine {
+//     public void start() {
+//         System.out.println("Engine started");
+//     }
+// }
+
+
+// @Component
+// class Car {
+//     @Autowired
+//     private Engine engine;
+
+//     public void drive() {
+//         engine.start();
+//         System.out.println("Car is driving...");
+//     }
+// }
+
+
+// @Configuration
+// @ComponentScan("com.example")
+// class AppConfig {}
+
+// public class Main {
+//     public static void main(String[] args) {
+//         ApplicationContext context =
+//             new AnnotationConfigApplicationContext(AppConfig.class);
+
+//         Car car = context.getBean(Car.class);
+//         car.drive();
+//     }
+// }
 
 // ---------------------------------------------------------------------------------------
 
