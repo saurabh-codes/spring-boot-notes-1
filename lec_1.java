@@ -358,7 +358,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 2. What is Dependency Injection?
+// 3. What is Dependency Injection?
 // - Dependency Injection (DI) is a design pattern where an object receives its dependencies
 //   from an external source rather than creating them itself.
 
@@ -506,7 +506,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 3. What is Aspect-Oriented Programming (AOP)?
+// 4. What is Aspect-Oriented Programming (AOP)?
 // - Aspect-Oriented Programming (AOP) is a programming paradigm that allows you to separate
 //   cross-cutting concerns from your main business logic.
 
@@ -622,7 +622,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 4. Spring MVC
+// 5. Spring MVC
 // - Spring MVC is a web framework built on the Spring Framework.
 
 // - It follows the Model-View-Controller design pattern to develop flexible, maintainable, and
@@ -735,7 +735,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 5. What is a Transaction?
+// 6. What is a Transaction?
 // - A transaction is a sequence of operations performed as a single unit of work.
 // - It must follow the ACID properties:
 
@@ -771,7 +771,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 6. Spring Security
+// 7. Spring Security
 // - Spring Security is a powerful and customizable framework for authentication, authorization,
 //   and protection against common security threats in Java applications.
 
@@ -793,7 +793,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 7. Spring Boot
+// 8. Spring Boot
 // - Spring Boot is a framework built on top of Spring that makes it easy to create stand-alone,
 //   production-ready Spring applications with minimal configuration.
 
