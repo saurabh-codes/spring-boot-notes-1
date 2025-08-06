@@ -219,3 +219,104 @@
 //   to use @Service to indicate that the class provides service or business logic.
 
 // ---------------------------------------------------------------------------------------
+
+// @Repository Annotation
+// - @Repository is a specialization of @Component intended specifically for data access layer
+//   (DAO) classes that interact with databases.
+
+// - One of the primary roles of @Repository is to provide a mechanism for translating database
+//   related exceptions into Spring's DataAccessException hierarchy.
+
+// - It reduce the complexity of error handling and makes the code more readable and maintainable.
+
+// ---------------------------------------------------------------------------------------
+
+// REST API
+// - REST stands for Representational State Transfer.
+// - It is a ways to implement communication between two apps.
+// - Its client-server communication model, stateless communication.
+// - It is widely used for building scalable and easy-to-maintain APIs.
+// - API stands for Application Programming Interface.
+
+// ---------------------------------------------------------------------------------------
+
+// Key Concepts of REST API
+
+// | Term             | Explanation                                                             |
+// | ---------------- | ----------------------------------------------------------------------- |
+// | **Client**       | The system (e.g., browser/app) that sends requests                      |
+// | **Server**       | The system that processes requests and sends responses                  |
+// | **Resource**     | Data entity like `User`, `Product`, `Order`                             |
+// | **Endpoint**     | A specific URL that performs an action on a resource (e.g., `/users/1`) |
+// | **HTTP Methods** | Used to perform actions like read, write, update, delete                |
+// | **Stateless**    | Each request from client to server must contain all information needed  |
+// | **JSON**         | Common data format used in REST APIs for data transfer                  |
+
+// ---------------------------------------------------------------------------------------
+
+// HTTP Methods
+// - HTTP methods are used to perform CRUD operations on resources like User, Product, etc.
+
+// ---------------------------------------------------------------------------------------
+
+// Common HTTP Methods in REST API
+
+// | HTTP Method | Purpose        | Spring Boot Annotation |
+// | ----------- | -------------- | ---------------------- |
+// | GET         | Read data      | `@GetMapping`          |
+// | POST        | Create data    | `@PostMapping`         |
+// | PUT         | Update data    | `@PutMapping`          |
+// | PATCH       | Partial update | `@PatchMapping`        |
+// | DELETE      | Delete data    | `@DeleteMapping`       |
+
+// ---------------------------------------------------------------------------------------
+
+// Note:- 
+// 1. A Partial Update means updating only specific fields of a resource instead of replacing
+//    the entire object.
+
+
+// Example:-
+// - Imagine you have a User object like this:
+
+// {
+//   "id": 1,
+//   "name": "John Doe",
+//   "email": "john@example.com",
+//   "age": 30
+// }
+
+// - You only send the field you want to update:
+
+// PATCH /users/1
+// {
+//   "name": "John Smith"
+// }
+
+// - This will only change the name, and keep email & age the same.
+
+// ---------------------------------------------------------------------------------------
+
+// Example:- REST API for a User System
+
+// | Action            | URL        | HTTP Method | Description             |
+// | ----------------- | ---------- | ----------- | ----------------------- |
+// | Get all users     | `/users`   | GET         | Returns a list of users |
+// | Get user by ID    | `/users/1` | GET         | Returns user with ID 1  |
+// | Create a new user | `/users`   | POST        | Adds a new user         |
+// | Update a user     | `/users/1` | PUT         | Updates user with ID 1  |
+// | Delete a user     | `/users/1` | DELETE      | Deletes user with ID 1  |
+
+// ---------------------------------------------------------------------------------------
+
+// ---------- Creating a REST API ----------
+
+// ---------------------------------------------------------------------------------------
+
+// Step 1:- Make some packages 'entity', 'controller', 'service', 'dto', 'repository' and 
+//          'mapper'.
+
+// Step 2:- 'In entity package', make a class name Product and class pe "@Entity" annotation
+//          use karenge and "@Getter" and "@Setter" annotation ka use karenge. 
+
+// ---------------------------------------------------------------------------------------
