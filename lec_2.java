@@ -86,27 +86,6 @@
 
 // ---------------------------------------------------------------------------------------
 
-// @Bean Annotations
-// - @Bean is a method level annotation
-
-// - @Bean is used inside a @Configuration class to define a Spring-managed bean manually 
-//   (instead of using @Component).
-
-// - You write a method, and Spring will run it and register the returned object as a bean 
-//   in the container.
-
-// ---------------------------------------------------------------------------------------
-
-// - in other words, without relying on spring to automatically detect and create beans, we can:
-
-// 1. Explicitly create and congigure beans by writing methods annotated with @Beans inside a
-//    class annotated with @Configuration.
-
-// 2. Spring will automatically manage the lifecycle of these beans, inject them wherever needed,
-//    and handle dependencies between them.
-
-// ---------------------------------------------------------------------------------------
-
 // @Configuration Annotations
 // - @Configuration is used to mark a class as a source of Spring bean definitions.
 // - It's like saying: "Hey Spring, this class will provide some beans manually."
@@ -126,6 +105,27 @@
 
 // 3. The @Configuration class also ensure that each @Bean method is only called once and the
 //    same bean instance is returned each time, which is important for managing singleton beans.
+
+// ---------------------------------------------------------------------------------------
+
+// @Bean Annotations
+// - @Bean is a method level annotation
+
+// - @Bean is used inside a @Configuration class to define a Spring-managed bean manually 
+//   (instead of using @Component).
+
+// - You write a method, and Spring will run it and register the returned object as a bean 
+//   in the container.
+
+// ---------------------------------------------------------------------------------------
+
+// - in other words, without relying on spring to automatically detect and create beans, we can:
+
+// 1. Explicitly create and congigure beans by writing methods annotated with @Beans inside a
+//    class annotated with @Configuration.
+
+// 2. Spring will automatically manage the lifecycle of these beans, inject them wherever needed,
+//    and handle dependencies between them.
 
 // ---------------------------------------------------------------------------------------
 
