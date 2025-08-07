@@ -92,22 +92,6 @@
 
 // ---------------------------------------------------------------------------------------
 
-// - @Configuration is an annotation in spring that designates a class as a source of bean
-//   definitions.
-
-// - In other words, when we annotate a class with @Configuration:
-
-// 1. We are telling spring that this class contains methods that define beans using the @Bean
-//    annotation.
-
-// 2. Spring will automatically process the class to create and configure all the beans defined
-//    within it.
-
-// 3. The @Configuration class also ensure that each @Bean method is only called once and the
-//    same bean instance is returned each time, which is important for managing singleton beans.
-
-// ---------------------------------------------------------------------------------------
-
 // @Bean Annotations
 // - @Bean is a method level annotation
 
@@ -116,16 +100,6 @@
 
 // - You write a method, and Spring will run it and register the returned object as a bean 
 //   in the container.
-
-// ---------------------------------------------------------------------------------------
-
-// - in other words, without relying on spring to automatically detect and create beans, we can:
-
-// 1. Explicitly create and congigure beans by writing methods annotated with @Beans inside a
-//    class annotated with @Configuration.
-
-// 2. Spring will automatically manage the lifecycle of these beans, inject them wherever needed,
-//    and handle dependencies between them.
 
 // ---------------------------------------------------------------------------------------
 
