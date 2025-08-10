@@ -287,10 +287,274 @@
 
 // ---------------------------------------------------------------------------------------
 
+// DTO
+// - DTO in Spring Boot stands for Data Transfer Object.
+
+// - It’s basically a simple Java class whose only job is to carry data from one place to 
+//   another — usually between different layers of your app (like Controller ↔ Service ↔ Database)
+//   or between your app and the outside world (like APIs).
+
+// ---------------------------------------------------------------------------------------
+
+// Mapper
+// - A mapper is just something that changes one type of object into another usually
+//   Entity ↔ DTO.
+
+// - Think of it like Google Translate for Java objects:
+// 1. Entity → DTO: Take database object, turn it into API-friendly object.
+// 2. DTO → Entity: Take API input, turn it into something the database can store.
+
+// ---------------------------------------------------------------------------------------
+
+// Entity
+// - An Entity is just a Java class that represents a table in your database.
+// - Entity class define karne ke liye @Entity Annotation ka use karenge.
+
+// 1. Each object of that class = a row in the table.
+// 2. Each field in the class = a column in the table.
+
+// ---------------------------------------------------------------------------------------
+
+// Controller
+// - A Controller is a Java class that handles incoming requests from the browser or API client
+//   and decides what to send back as a response.
+
+// - @RestController → Tells Spring this class will handle web requests.
+
+// ---------------------------------------------------------------------------------------
+
+// Service
+// - Business logic hum service mey likhte hai.
+// - @Service Annotation will be used.
+
+// ---------------------------------------------------------------------------------------
+
+// Repository
+// - Repository is a Java interface that talks to the database.
+// - Repository mey hum database se entity ko connect karte hai.
+
+// - JpaRepository interface → @Repository Annotation is optional (Spring adds it for you).
+// - Manual DB class? → You must add @Repository Annotation.
+
+// ---------------------------------------------------------------------------------------
+
+// Add Dependencies and choose:
+// - Spring Web (for building REST APIs)
+// - Spring Boot DevTools (for auto-reloading)
+// - Spring Data JPA and H2 Database (for database apps)
+// - Lombok (Java annotation library which helps to reduce boilerplate code.)
+
+// ---------------------------------------------------------------------------------------
+
 // Step 1:- Make some packages 'entity', 'controller', 'service', 'dto', 'repository' and 
 //          'mapper'.
 
-// Step 2:- 'In entity package', make a class name Product and class pe "@Entity" annotation
-//          use karenge and "@Getter" and "@Setter" annotation ka use karenge. 
+// ---------------------------------------------------------------------------------------
+
+// Step 2:- 'In entity package', make a class name 'Product'
+
+// Example:-
+
+// @Entity
+// @Getter @Setter
+// // Note:- Lombok ki vajah se yaha pe direct use kar paa rahe hai.
+// public class Product {
+
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     // Note:- hm product ki id automatic create karne ke liye isse use
+//     // kar rahe.
+
+//     private Long id;
+//     private String name;
+//     private String description;
+//     private Double price;
+
+//     @ManyToOne
+//     @JoinColumn(name = "category_id", nullable = false)
+//     // Note:- iss table mey jo column name hoga vaha pe category id add ho
+//     // jayega. and 'Category' class ki id isme store ho jayega.
+//     private Category category;
+//     // Note:- iska use Category class mey 'OneToMany' ke andar use karenge.
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 3:- 'In entity package', make a class name 'Category'
+
+// Example:-
+
+// // Note:- 'Category' ka 'Product' se One to Many ka relationship
+// // hoga.
+// @Entity
+// @Getter @Setter
+// public class Category {
+
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
+//     private String name;
+
+//     // Note:- yaha pe 'One to Many' ka relationship ban raha hai.
+//     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+//     // Note:- category mey kuch change ho toh product mey bhi hona
+//     // cahiye. isiliye arguments pass kar rahe hai.
+//     private List<Product> products;
+//     // Note:- List<Product> → A collection (list) that will store many
+//     // Product objects.
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 4:- In 'controller' package, make a class name 'ProductController'
+
+// Example:-
+
+// @RestController
+// @RequestMapping("/api/products")
+// // Note:- @RequestMapping tells Spring which URL should be handled by
+// // which method (or class).
+
+// public class ProductController {
+//     // 1. Get Product
+
+//     // 2. Create Product
+
+//     // 3. Update Product
+
+//     // 4. Get Product by Id
+
+//     // 5. Delete Product
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 5:- In 'controller' package, make a class name 'CategoryController'
+
+// Example:-
+
+// @RestController
+// @RequestMapping("/api/categories")
+
+// public class CategoryController {
+
+//     // 1. Get all Categories
+
+//     // 2. Create Categories
+
+//     // 3. Get Category by Id
+
+//     // 4. Delete Category
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 6:- In 'repository' package, make a interface name 'ProductRepository'
+
+// Example:-
+
+// @Repository
+// public interface ProductRepository extends JpaRepository<Product, Long> {
+
+//     // Note:- Means I am creating a ProductRepository interface that can
+//     // do all basic database operations (like save, update, delete, find)
+//     // for the Product entity, and the primary key type is Long.
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 7:- In 'repository' package, make a interface name 'CategoryRepository'
+
+// Example:- 
+
+// @Repository
+// public interface CategoryRepository extends JpaRepository<Category, Long> {
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 8:- In 'service' package, make a class name 'ProductService'
+
+// Example:-
+
+// @Service
+// public class ProductService {
+
+//     // 1. Repository ko yaha pe inject karenge
+//     private ProductRepository productRepository;
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 9:- In 'service' package, make a class name 'CategoryService'
+
+// Example:-
+
+// @Service
+// public class CategoryService {
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 10:- In 'dto' package, make a class name 'ProductDTO'
+
+// Example:-
+
+// @Data
+// // Note:- Creates all the boring stuff for you automatically:
+// // 1. getters (getName())
+// // 2. setters (setName())
+// // 3. toString()
+// // 4. equals() and hashCode()
+// // So you don’t have to write them manually.
+
+// @AllArgsConstructor
+// // Note:- Creates a constructor with all fields as parameters.
+
+// @NoArgsConstructor
+// // Note:- Creates a default empty constructor (no parameters).
+
+// public class ProductDTO {
+
+//     private Long id;
+//     private String name;
+//     private String description;
+//     private Double price;
+//     private Long categoryId;
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 11:- In 'dto' package, make a class name 'CategoryDTO'
+
+// Example:-
+
+// @Data
+// @AllArgsConstructor
+// @NoArgsConstructor
+
+// public class CategoryDTO {
+//     private Long id;
+//     private String name;
+//     private List<ProductDTO> products;
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 12:- In 'mapper' package, make a class name 'ProductMapper'
+
+// Example:-
+
+// public class ProductMapper {
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 13:- In 'mapper' package, make a class name 'CategoryMapper'
+
+// Example:- 
+
+// public class CategoryMapper {
+// }
 
 // ---------------------------------------------------------------------------------------
