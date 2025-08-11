@@ -558,3 +558,419 @@
 // }
 
 // ---------------------------------------------------------------------------------------
+
+// Step 14:- In 'service' package, in 'CategoryService' class
+
+// Example:- 
+
+// @Service
+// public class CategoryService {
+//     private CategoryRepository categoryRepository;
+
+//     // A. Create Category
+//     public CategoryDTO createCategory(CategoryDTO categoryDTO){
+//         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
+//         category = categoryRepository.save(category);
+//         return CategoryMapper.toCategoryDTO(category);
+
+//     }
+//     // Note:-
+//     // 1. CategoryDTO before the method name → This method will return a
+//     // CategoryDTO object (a data container for category info).
+
+//     // 2. createCategory → The method’s name. It tells us this function’s
+//     // purpose: to create a category.
+
+//     // 3. CategoryDTO categoryDTO → This is the input parameter. Whoever
+//     // calls this method must give a CategoryDTO object containing details
+//     // of the category (like name, description, etc.).
+
+
+//     // B. Get all Category
+
+//     // C. Get Category by Id
+
+//     // D. Delete Category
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 15:- In 'mapper' package, in 'CategoryMapper' class
+
+// Example:-
+
+// public class CategoryMapper {
+//     // Note:- This method is a mapper that converts a Category entity
+//     // (from the database) into a CategoryDTO (safe format for sending
+//     // to the frontend).
+//     public static CategoryDTO toCategoryDTO(Category category){
+//         if (category == null){
+//             return null;
+//         }
+//         CategoryDTO categoryDTO = new CategoryDTO();
+//         categoryDTO.setId(category.getId());
+//         categoryDTO.setName(category.getName());
+//         categoryDTO.setProducts(category.getProducts().stream()
+//                 .map(ProductMapper::toProductDTO).toList());
+//         return categoryDTO;
+//     }
+//     // Note:-
+//     // 1. categoryDTO.setId(category.getId());categoryDTO.setName(category.getName());
+//     // Copy simple fields from entity to DTO
+
+//     // 2. Convert products list:
+//     // a. category.getProducts() → gets the list of Product entities
+//     // inside the category.
+
+//     // b. .stream() → turns the list into a stream for processing.
+
+//     // c. .map(ProductMapper::toProductDTO) → converts each Product
+//     // entity into a ProductDTO using the toProductDTO method.
+
+//     // d. .toList() → collects all converted products into a List<ProductDTO>.
+
+//     // 3. Return DTO → Sends back the complete category data in DTO form.
+
+
+//     // Note:- This method is a mapper that converts a CategoryDTO (data
+//     // from the client or frontend) into a Category entity (used to save
+//     // into the database).
+//     public static Category toCategoryEntity(CategoryDTO categoryDTO){
+//         Category category = new Category();
+//         category.setName(categoryDTO.getName());
+//         return category;
+//     }
+//     // Note:-
+//     // 1. Category → This method will return a Category object (probably
+//     // a JPA Entity that maps to the database table).
+
+//     // 2. toCategoryEntity → The method name says: "Convert something into
+//     // a Category entity".
+
+//     // 3. CategoryDTO categoryDTO → Input parameter. Whoever calls this
+//     // method must provide category data in a DTO (Data Transfer Object) form.
+
+//     // 4. category.setName(categoryDTO.getName()); → Takes the name value from
+//     // categoryDTO and puts it into the new Category object.
+
+//     // 5. return category; → Gives back the ready Category object so it can be
+//     // used (like saving it to the database).
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 16:- In 'mapper' package, in 'ProductMapper' class
+
+// public class ProductMapper {
+//     // Note:- This method is a mapper that converts a Product
+//     // entity (from the database) into a ProductDTO (a simpler
+//     // object for sending to the frontend).
+
+//     // A. entity to dto
+//     public static ProductDTO toProductDTO(Product product) {
+//         return new ProductDTO(
+//                 product.getId(),
+//                 product.getName(),
+//                 product.getDescription(),
+//                 product.getPrice(),
+//                 product.getCategory().getId()
+//         );
+//     }
+//     // Note:-
+//     // 1. toProductDTO(Product product) →
+//     // Method name means: "Convert a Product entity into a ProductDTO".
+//     // Takes a Product object from the database as input.
+
+//     // 2. return new ProductDTO(...) →
+//     // Creates a new ProductDTO object.
+//     // Passes the values from the Product entity to the DTO constructor
+
+//     // 3. product.getCategory().getId() → gets the category ID from
+//     // the category entity inside the product
+
+
+//     // Note:- This method is a mapper that converts a ProductDTO (coming
+//     // from the client/frontend) into a Product entity (which can be saved
+//     // in the database).
+
+//     // B. dto to entity
+//     public static Product toProductEntity(ProductDTO productDTO, Category category){
+//         Product product = new Product();
+//         product.setName(productDTO.getName());
+//         product.setDescription(productDTO.getDescription());
+//         product.setPrice(productDTO.getPrice());
+//         product.setCategory(category);
+//         return product;
+//     }
+//     // Note:-
+//     // 1. public static Product →
+//     // Returns a Product entity object.
+
+//     // 2. toProductEntity(ProductDTO productDTO, Category category) →
+//     // The method takes two inputs:
+
+//     // a. productDTO → contains product details (like name, description,
+//     // price) from the client.
+
+//     // b. category → the actual Category entity from the database, so the
+//     // product can be linked to it.
+
+//     // 3. Setters (setName, setDescription, setPrice) → Copies values from
+//     // the DTO into the new entity.
+
+//     // 4. product.setCategory(category); → Links the product with its category
+//     // (entity form, not just an ID).
+
+//     // 5. return product; → Gives back the complete Product entity so it can
+//     // be saved to the database.
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 17:- In 'controller' package, in 'CategoryController' class
+
+// Example:-
+
+// @RestController
+// @RequestMapping("/api/categories")
+// @AllArgsConstructor
+// // Note:-
+// // 1. @RestController
+// // a. Marks this class as a REST API controller in Spring Boot.
+
+// // b. Combines @Controller + @ResponseBody, meaning methods will return
+// // JSON instead of HTML.
+
+// // 2. @AllArgsConstructor (from Lombok)
+// // a. Automatically creates a constructor with arguments for all fields in
+// // the class.
+
+// // b. Here, it allows Spring to inject CategoryService without manually
+// // writing a constructor.
+
+// public class CategoryController {
+
+//     private CategoryService categoryService;
+
+//     // A. Get all Categories
+
+//     // B. Create Categories
+//     @PostMapping
+//     public CategoryDTO categoryDTO(@RequestBody CategoryDTO categoryDTO){
+//         return categoryService.createCategory(categoryDTO);
+//     }
+//     // Note:-
+//     // 1. @PostMapping → This method handles HTTP POST requests to /api/categories.
+
+//     // 2. @RequestBody CategoryDTO categoryDTO → The incoming request body (JSON)
+//     // will be converted into a CategoryDTO object.
+
+//     // 3. categoryService.createCategory(categoryDTO) → Calls the service layer
+//     // to save the category.
+
+//     // 4. Returns → The saved category as a CategoryDTO (converted from the entity).
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 18:- In 'resources' package, in 'application.properties' file
+
+// spring.datasource.url=jdbc:h2:mem:testDB
+// spring.jpa.show-sql=true
+
+// // Note:- spring.datasource.url=jdbc:h2:mem:testDB
+// // 1. spring.datasource.url → Tells Spring Boot where the database is.
+// // 2. jdbc: → Standard prefix for database URLs.
+// // 3. h2: → The database type is H2 (a lightweight, in-memory database).
+// // 4. mem: → Means the database is in memory (temporary — data disappears 
+// // when the app stops).
+
+// // 5. testDB → The name of the in-memory database.
+// // 6. Use an in-memory H2 database named testDB for this application.
+
+
+// // Note:- spring.jpa.show-sql=true
+// // 1. spring.jpa.show-sql → Tells Hibernate (the JPA provider) whether to log
+// // the SQL queries it runs.
+
+// // 2. true → Means log all SQL statements in the console when the app is running.
+
+// ---------------------------------------------------------------------------------------
+
+// Step 18:- Run the application and see in the terminal
+
+// 1. Hibernate aapka two table create kar dega (table category, table product )
+
+// 2. Now, open the H2 Database console (http://localhost:8080/h2-console/)
+
+// 3. Now, database url(jdbc:h2:mem:testDB) ko 'H2 console' ke JDBC URL input mey fill
+//    karke connect kar denge. then database open ho jayega.
+
+// 4. Now, aapko 'PRODUCT' and 'CATEGORY' table ready milega.
+
+// ---------------------------------------------------------------------------------------
+
+// What is Hibernate?
+// - Hibernate is a Java framework that helps you work with databases without writing 
+//   raw SQL for everything.
+
+// - It’s an ORM (Object–Relational Mapping) tool:
+
+// 1. Object → Java classes/objects
+// 2. Relational → Database tables
+
+// 3. Mapping → Connecting Java objects to database tables so you can work with data as
+//    Java objects instead of SQL rows.
+
+// ---------------------------------------------------------------------------------------
+
+// For Example:-
+
+// 1. You create a Product class in Java.
+// 2. Hibernate maps it to a product table in the database.
+// 3. When you save() the object, Hibernate writes the SQL behind the scenes.
+
+// ---------------------------------------------------------------------------------------
+
+// Why use Hibernate in Spring Boot?
+// - Spring Boot uses Spring Data JPA, which internally uses Hibernate as the default 
+//   ORM provider. This means:
+
+// 1. You write Java classes (called Entities).
+// 2. You use Repository interfaces (no SQL needed).
+
+// 3. Hibernate automatically:
+// A. Generates SQL queries
+// B. Handles INSERT, SELECT, UPDATE, DELETE
+// C. Manages relationships (One-to-Many, Many-to-Many, etc.)
+// D. Converts database rows to Java objects and back
+
+// ---------------------------------------------------------------------------------------
+
+// How Hibernate fits in Spring Boot
+// - A typical flow:
+
+// 1. Entity class → Java class annotated with @Entity, mapped to a table.
+// 2. Repository interface → Extends JpaRepository, gives CRUD methods without writing SQL.
+// 3. Hibernate → Works behind the scenes to execute SQL.
+// 4. Database → Stores and retrieves data.
+
+// ---------------------------------------------------------------------------------------
+
+// Benefits
+// - Less SQL code → Hibernate generates SQL automatically.
+// - Portability → Works with many databases (MySQL, PostgreSQL, H2, Oracle, etc.).
+// - Relationships → Easy to handle One-to-Many, Many-to-One.
+// - Caching → Can speed up database reads.
+
+// ---------------------------------------------------------------------------------------
+
+// Step 19:- Open the Postman
+
+// 1. POST url "http://localhost:8080/api/categories"
+
+// 2. click on 'Body' and write and send:
+
+// {
+//     "name": "Electronics"
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Step 20:- In 'service' package, in 'CategoryService' class
+
+// Note:- add "@AllArgsConstructor" annotation to the class
+
+// ---------------------------------------------------------------------------------------
+
+// Step 21:- In 'entity' package, in 'CategoryService' class
+
+// 1. update the line number '24' code 
+// private List<Product> products; with:
+// private List<Product> products = new ArrayList<>();
+
+
+// Note:- new ArrayList<>()
+// 1. List is a Java interface that represents an ordered collection (like an array 
+// but more flexible).
+
+// 2. <Product> means the list will store only Product objects (generics).
+
+// 3. Creates an empty ArrayList that will store Product objects.
+
+// 4. ArrayList is a common implementation of List that stores elements in a 
+// resizable array.
+
+// ---------------------------------------------------------------------------------------
+
+// Now, Body mey response milega with '200 ok' status:
+
+// {
+//     "id": 1,
+//     "name": "Electronics",
+//     "products": []
+// }
+
+
+// Note:- 
+// 1. By default Postman mey data save hone ke baad '200 ok' status ka response deta hai.
+// 2. hum isko fix kar sakte hai. follow next step:
+
+// ---------------------------------------------------------------------------------------
+
+// Step 22:- In 'controller' package, in 'CategoryController' class
+
+// Note:- Update the line number 36 code:
+
+// public CategoryDTO categoryDTO(@RequestBody CategoryDTO categoryDTO){
+//     return categoryService.createCategory(categoryDTO);
+// }
+
+// WITH:
+
+// public ResponseEntity<CategoryDTO> categoryDTO(@RequestBody CategoryDTO categoryDTO){
+//     return new ResponseEntity<>( categoryService.createCategory(categoryDTO), HttpStatus.CREATED);
+// }
+
+// Note:- Now, response code will be change into "201Created" status.
+
+// ---------------------------------------------------------------------------------------
+
+// Note:-
+// 1. <CategoryDTO> means the response body will contain a CategoryDTO object.
+
+// 2. return new ResponseEntity<>( ... , HttpStatus.CREATED)
+// a. Second argument → HttpStatus.CREATED (HTTP code 201)
+
+// b. Tells the client: "The resource was successfully created."
+
+// ---------------------------------------------------------------------------------------
+
+// Now, jb hum next 'categories' create karenge:
+
+// {
+//     "name": "Clothing"
+// }
+
+
+// Output in Body:-
+
+// {
+//     "id": 2,
+//     "name": "Clothing",
+//     "products": []
+// }
+
+// Note:- id ki value 2 mil gayi
+
+// ---------------------------------------------------------------------------------------
+
+// Step 23:- Now, database mey jab category run karenge:
+
+// ID  	NAME  
+// 1	Electronics
+// 2	Clothing
+
+// - Output Milega
+
+// ---------------------------------------------------------------------------------------
