@@ -569,8 +569,15 @@
 
 //     // A. Create Category
 //     public CategoryDTO createCategory(CategoryDTO categoryDTO){
+
+//         // Step 1:- Convert CategoryDTO → Category entity
+//         // Here, CategoryMapper.toCategoryEntity(...) is a mapping method.
 //         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
+
+//         // Step 2:- Save entity to the database
 //         category = categoryRepository.save(category);
+
+//         // Step 3:- Convert saved entity → DTO
 //         return CategoryMapper.toCategoryDTO(category);
 //     }
 //     // Note:-
@@ -602,6 +609,7 @@
 //     // Note:- This method is a mapper that converts a Category entity
 //     // (from the database) into a CategoryDTO (safe format for sending
 //     // to the frontend).
+
 //     public static CategoryDTO toCategoryDTO(Category category){
 //         if (category == null){
 //             return null;
@@ -885,7 +893,7 @@
 // Step 21:- In 'entity' package, in 'CategoryService' class
 
 // 1. update the line number '24' code 
-// private List<Product> products; with:
+// "private List<Product> products;" with:
 // private List<Product> products = new ArrayList<>();
 
 
