@@ -126,5 +126,83 @@
 // 3. 'service' internally entity and repository ka use karegi taaki vah model generate
 //    kar sake.
 
-// 4. and uss 
+// 4. and uss model ko 'controller' ke paas bhej degi.
+
+// 5. and 'controller' iss model ka json bana kr return krega.
+
+// ---------------------------------------------------------------------------------------
+
+// Three Layered Architecture
+//                         (DTO)                      (Entity)
+// 1. Presentation Layer ------------> Service Layer ------------> Data-access Layer
+//    (Controller)                     (Service)                   (Repository)
+
+// ---------------------------------------------------------------------------------------
+
+//                              (DTO)                    (Entity)
+// 2. Presentation Layer <------------ Service Layer <------------ Data-access Layer
+//    (Controller)                     (Service)                   (Repository)
+
+// ---------------------------------------------------------------------------------------
+
+// Note:-
+// 1. client request 'Presentation Layer' ke pass jati hai.
+// 2. uske baad 'Presentation Layer' baat karta hai 'Service Layer' se.
+// 3. inke beech jo bhi data ka aapas mey sharing hota hai, vo 'DTO' ki help se hota hai.
+// 4. DTO ko 'data transfer object' bolte hai and ye normal java class hoti hai.
+// 5. jiski help se 'data' ko Presentation Layer se Service Layer mey bhejte hai.
+
+// Note:-
+// 1. Service Layer se Data-access Layer tak 'data' ka transfer Entity ki help se hota hai.
+// 2. Entity ko model bhi kahte hai.
+// 3. Data-access Layer Database se baat karti hai.
+// 4. and Data-access Layer Database se 'data' le kar aayegi.
+// 5. and uss data ko 'Entity' form mey vapas bhejegi 'Service Layer' ko.
+// 6. and 'Service Layer' data ko 'Presentation Layer' mey bhejega 'DTO' form mey.
+
+// ---------------------------------------------------------------------------------------
+
+// Note:-
+// 1. jb bhi Presentation Layer and Service Layer ke beech mey baat hoti hai toh
+//    'DTO' ke form mey hoti hai.
+
+// 2. jb bhi Service Layer and Data-access Layer ke beech mey baat hoti hai toh
+//    'Entity' and 'DTO' ke form mey ho sakti hai.
+
+// Note:- It keeps your code organized, flexible, reusable, and easy to test. just like
+//        a well-run restaurant where waiters, chefs, and the store all have their own
+//        clear roles.
+
+// ---------------------------------------------------------------------------------------
+
+// Three Layered Architecture Diagram
+
+// [ User / Browser ]
+//         |
+//         v
+// +---------------------+
+// |   Controller Layer  |  <-- Handles requests & responses
+// +---------------------+
+//         |
+//         v
+// +---------------------+
+// |    Service Layer    |  <-- Business logic (rules, calculations)
+// +---------------------+
+//         |
+//         v
+// +---------------------+
+// |  Repository Layer   |  <-- Talks to the database
+// +---------------------+
+//         |
+//         v
+// [  Database  ]
+
+
+// Flow:-
+// 1. User sends a request → Controller
+// 2. Controller sends to → Service
+// 3. Service asks → Repository
+// 4. Repository talks to → Database
+// 5. Data comes back the same way in reverse.
+
 // ---------------------------------------------------------------------------------------
