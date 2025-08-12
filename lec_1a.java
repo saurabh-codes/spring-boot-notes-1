@@ -135,3 +135,54 @@
 // ├── generated-sources/
 
 // ---------------------------------------------------------------------------------------
+
+// DTO
+// - DTO in Spring Boot stands for Data Transfer Object.
+
+// - It’s basically a simple Java class whose only job is to carry data from one place to 
+//   another — usually between different layers of your app (like Controller ↔ Service ↔ Database)
+//   or between your app and the outside world (like APIs).
+
+// ---------------------------------------------------------------------------------------
+
+// Mapper
+// - A mapper is just something that changes one type of object into another usually
+//   Entity ↔ DTO.
+
+// - Think of it like Google Translate for Java objects:
+// 1. Entity → DTO: Take database object, turn it into API-friendly object.
+// 2. DTO → Entity: Take API input, turn it into something the database can store.
+
+// ---------------------------------------------------------------------------------------
+
+// Entity
+// - An Entity is just a Java class that represents a table in your database.
+// - Entity class define karne ke liye @Entity Annotation ka use karenge.
+
+// 1. Each object of that class = a row in the table.
+// 2. Each field in the class = a column in the table.
+
+// ---------------------------------------------------------------------------------------
+
+// Controller
+// - A Controller is a Java class that handles incoming requests from the browser or API client
+//   and decides what to send back as a response.
+
+// - @RestController → Tells Spring this class will handle web requests.
+
+// ---------------------------------------------------------------------------------------
+
+// Service
+// - Business logic hum service mey likhte hai.
+// - @Service Annotation will be used.
+
+// ---------------------------------------------------------------------------------------
+
+// Repository
+// - Repository is a Java interface that talks to the database.
+// - Repository mey hum database se entity ko connect karte hai.
+
+// - JpaRepository interface → @Repository Annotation is optional (Spring adds it for you).
+// - Manual DB class? → You must add @Repository Annotation.
+
+// ---------------------------------------------------------------------------------------
