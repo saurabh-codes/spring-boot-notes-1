@@ -339,5 +339,6 @@
 // 4. And my PORT is 5432.
 // 5. Password is 12345.
 // 6. And PgBouncer Listening PORT is 6432.
+// 7. And Search for pgAdmin in our Computer.
 
 // ---------------------------------------------------------------------------------------
