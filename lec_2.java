@@ -572,7 +572,6 @@
 //         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
 //         category = categoryRepository.save(category);
 //         return CategoryMapper.toCategoryDTO(category);
-
 //     }
 //     // Note:-
 //     // 1. CategoryDTO before the method name → This method will return a
