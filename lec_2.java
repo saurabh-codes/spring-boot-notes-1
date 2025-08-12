@@ -571,7 +571,8 @@
 //     public CategoryDTO createCategory(CategoryDTO categoryDTO){
 
 //         // Step 1:- Convert CategoryDTO → Category entity
-//         // Here, CategoryMapper.toCategoryEntity(...) is a mapping method.
+//         // Here, CategoryMapper.toCategoryEntity(...) is a mapping
+//         // method.
 //         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
 
 //         // Step 2:- Save entity to the database
@@ -581,15 +582,15 @@
 //         return CategoryMapper.toCategoryDTO(category);
 //     }
 //     // Note:-
-//     // 1. CategoryDTO before the method name → This method will return a
-//     // CategoryDTO object (a data container for category info).
+//     // 1. CategoryDTO before the method name → This method will 
+//     // return a CategoryDTO object (a data container for category info).
 
-//     // 2. createCategory → The method’s name. It tells us this function’s
-//     // purpose: to create a category.
+//     // 2. createCategory → The method’s name. It tells us this 
+//     // function’s purpose: to create a category.
 
-//     // 3. CategoryDTO categoryDTO → This is the input parameter. Whoever
-//     // calls this method must give a CategoryDTO object containing details
-//     // of the category (like name, description, etc.).
+//     // 3. CategoryDTO categoryDTO → This is the input parameter.
+//     // Whoever calls this method must give a CategoryDTO object
+//     // containing details of the category (like name, description, etc.).
 
 
 //     // B. Get all Category
@@ -606,9 +607,9 @@
 // Example:-
 
 // public class CategoryMapper {
-//     // Note:- This method is a mapper that converts a Category entity
-//     // (from the database) into a CategoryDTO (safe format for sending
-//     // to the frontend).
+//     // Note:- This method is a mapper that converts a Category 
+//     // entity (from the database) into a CategoryDTO (safe 
+//     // format for sending to the frontend).
 
 //     public static CategoryDTO toCategoryDTO(Category category){
 //         if (category == null){
@@ -626,8 +627,8 @@
 //     // Copy simple fields from entity to DTO
 
 //     // 2. Convert products list:
-//     // a. category.getProducts() → gets the list of Product entities
-//     // inside the category.
+//     // a. category.getProducts() → gets the list of Product
+//     // entities inside the category.
 
 //     // b. .stream() → turns the list into a stream for processing.
 
@@ -639,29 +640,31 @@
 //     // 3. Return DTO → Sends back the complete category data in DTO form.
 
 
-//     // Note:- This method is a mapper that converts a CategoryDTO (data
-//     // from the client or frontend) into a Category entity (used to save
-//     // into the database).
+//     // Note:- This method is a mapper that converts a CategoryDTO
+//     // (data from the client or frontend) into a Category entity 
+//     // (used to saveinto the database).
 //     public static Category toCategoryEntity(CategoryDTO categoryDTO){
 //         Category category = new Category();
 //         category.setName(categoryDTO.getName());
 //         return category;
 //     }
 //     // Note:-
-//     // 1. Category → This method will return a Category object (probably
-//     // a JPA Entity that maps to the database table).
+//     // 1. Category → This method will return a Category object 
+//     // (probably a JPA Entity that maps to the database table).
 
-//     // 2. toCategoryEntity → The method name says: "Convert something into
-//     // a Category entity".
+//     // 2. toCategoryEntity → The method name says: "Convert 
+//     // something into a Category entity".
 
-//     // 3. CategoryDTO categoryDTO → Input parameter. Whoever calls this
-//     // method must provide category data in a DTO (Data Transfer Object) form.
+//     // 3. CategoryDTO categoryDTO → Input parameter. Whoever
+//     // calls this method must provide category data in a DTO
+//     // (Data Transfer Object) form.
 
-//     // 4. category.setName(categoryDTO.getName()); → Takes the name value from
-//     // categoryDTO and puts it into the new Category object.
+//     // 4. category.setName(categoryDTO.getName()); → Takes the
+//     // name value from categoryDTO and puts it into the new 
+//     // Category object.
 
-//     // 5. return category; → Gives back the ready Category object so it can be
-//     // used (like saving it to the database).
+//     // 5. return category; → Gives back the ready Category 
+//     // object so it can be used (like saving it to the database).
 // }
 
 // ---------------------------------------------------------------------------------------
@@ -690,15 +693,16 @@
 
 //     // 2. return new ProductDTO(...) →
 //     // Creates a new ProductDTO object.
-//     // Passes the values from the Product entity to the DTO constructor
+//     // Passes the values from the Product entity to the DTO 
+//     // constructor
 
-//     // 3. product.getCategory().getId() → gets the category ID from
-//     // the category entity inside the product
+//     // 3. product.getCategory().getId() → gets the category
+//     // ID from the category entity inside the product
 
 
-//     // Note:- This method is a mapper that converts a ProductDTO (coming
-//     // from the client/frontend) into a Product entity (which can be saved
-//     // in the database).
+//     // Note:- This method is a mapper that converts a ProductDTO
+//     // (coming from the client/frontend) into a Product entity 
+//     // (which can be saved in the database).
 
 //     // B. dto to entity
 //     public static Product toProductEntity(ProductDTO productDTO, Category category){
@@ -719,17 +723,17 @@
 //     // a. productDTO → contains product details (like name, description,
 //     // price) from the client.
 
-//     // b. category → the actual Category entity from the database, so the
-//     // product can be linked to it.
+//     // b. category → the actual Category entity from the database,
+//     // so the product can be linked to it.
 
-//     // 3. Setters (setName, setDescription, setPrice) → Copies values from
-//     // the DTO into the new entity.
+//     // 3. Setters (setName, setDescription, setPrice) → Copies values 
+//     // from the DTO into the new entity.
 
-//     // 4. product.setCategory(category); → Links the product with its category
-//     // (entity form, not just an ID).
+//     // 4. product.setCategory(category); → Links the product with its 
+//     // category (entity form, not just an ID).
 
-//     // 5. return product; → Gives back the complete Product entity so it can
-//     // be saved to the database.
+//     // 5. return product; → Gives back the complete Product entity so 
+//     // it can be saved to the database.
 // }
 
 // ---------------------------------------------------------------------------------------
@@ -767,15 +771,17 @@
 //         return categoryService.createCategory(categoryDTO);
 //     }
 //     // Note:-
-//     // 1. @PostMapping → This method handles HTTP POST requests to /api/categories.
+//     // 1. @PostMapping → This method handles HTTP POST requests to
+//     // /api/categories.
 
-//     // 2. @RequestBody CategoryDTO categoryDTO → The incoming request body (JSON)
-//     // will be converted into a CategoryDTO object.
+//     // 2. @RequestBody CategoryDTO categoryDTO → The incoming request
+//     // body (JSON) will be converted into a CategoryDTO object.
 
-//     // 3. categoryService.createCategory(categoryDTO) → Calls the service layer
-//     // to save the category.
+//     // 3. categoryService.createCategory(categoryDTO) → Calls the 
+//     // service layer to save the category.
 
-//     // 4. Returns → The saved category as a CategoryDTO (converted from the entity).
+//     // 4. Returns → The saved category as a CategoryDTO (converted
+//     // from the entity).
 // }
 
 // ---------------------------------------------------------------------------------------
@@ -789,12 +795,14 @@
 // // 1. spring.datasource.url → Tells Spring Boot where the database is.
 // // 2. jdbc: → Standard prefix for database URLs.
 // // 3. h2: → The database type is H2 (a lightweight, in-memory database).
-// // 4. mem: → Means the database is in memory (temporary — data disappears 
-// // when the app stops).
+
+// // 4. mem: → Means the database is in memory (temporary — data 
+// // disappears when the app stops).
 
 // // 5. testDB → The name of the in-memory database.
 // // 6. Use an in-memory H2 database named testDB for this application.
 
+// ---------------------------------------------------------------------------------------
 
 // // Note:- spring.jpa.show-sql=true
 // // 1. spring.jpa.show-sql → Tells Hibernate (the JPA provider) whether to log
