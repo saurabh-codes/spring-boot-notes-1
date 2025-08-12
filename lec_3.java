@@ -109,7 +109,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// ---------- Creating REST API ----------
+// ---------- Creating REST API (Student Management) ----------
 
 // ---------------------------------------------------------------------------------------
 
@@ -159,6 +159,8 @@
 // 4. and Data-access Layer Database se 'data' le kar aayegi.
 // 5. and uss data ko 'Entity' form mey vapas bhejegi 'Service Layer' ko.
 // 6. and 'Service Layer' data ko 'Presentation Layer' mey bhejega 'DTO' form mey.
+// 7. and 'Presentation Layer' data ko 'JSON' format mey Client ko response bhejega.
+// 8. and 'DTO' form ko 'JSON' form mey 'http message converter' convert kar raha hai.
 
 // ---------------------------------------------------------------------------------------
 
@@ -204,5 +206,138 @@
 // 3. Service asks → Repository
 // 4. Repository talks to → Database
 // 5. Data comes back the same way in reverse.
+
+// ---------------------------------------------------------------------------------------
+
+// @Data Annotation
+// - When you put @Data on a class, Lombok creates for you:
+
+// 1. Getters (to read field values)
+// 2. Setters (to change field values)
+// 3. toString() (to print object details)
+// 4. equals() and hashCode() (to compare objects)
+// 5. RequiredArgsConstructor (constructor for final fields)
+
+// ---------------------------------------------------------------------------------------
+
+// @AllArgsConstructor Anntation
+// - @AllArgsConstructor is an annotation that automatically creates a constructor
+//   with one parameter for each field in your class.
+
+// ---------------------------------------------------------------------------------------
+
+// Step 2:- In 'dto' package, create a 'StudentDto' class.
+
+// @Data
+// @AllArgsConstructor
+// public class StudentDto {
+//     private Long id;
+//     private String name;
+//     private String email;
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// @RestController Annotation
+// - @RestController marks a class as a controller that handles web requests and sends
+//   back data (usually JSON), not HTML pages.
+
+// - It combines @Controller and @ResponseBody in one.
+
+// - That means every method in the class returns data directly in the HTTP response 
+//   body. you don’t have to write @ResponseBody every time.
+
+// ---------------------------------------------------------------------------------------
+
+// @GetMapping Annotation
+// - That tells Spring Boot This method should handle HTTP GET requests.
+// - GET requests are usually used to get/fetch data from the server.
+
+// ---------------------------------------------------------------------------------------
+
+// @GetMapping("/student")
+// - This is the path/URL that the request must match.
+
+// ---------------------------------------------------------------------------------------
+
+// Step 3:- In 'controller' package, create a 'StudentController' class.
+
+// Note:-
+// 1. StudentController help karega 'Students' related saari API banane mey.
+// 2. 'Ctrl + p' press karke Constructor ka input field jaan sakte ho.
+// 3. StudentDto is the return type in getStudent().
+// 4. means this method will give back a StudentDto object when called. 
+
+// @RestController
+// public class StudentController {
+
+//     @GetMapping("/student")
+//     public StudentDto getStudent(){
+//         return new StudentDto(1L, "Mike", "mike@gmail.com");
+//     }
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// Example:- 
+// 1. Now, server start karne ke baad 'http://localhost:8080/student' url pe jao.
+
+// 2. And, output will be in JSON Format:
+
+// Output:- {"id":1,"name":"Mike","email":"mike@gmail.com"}
+
+// ---------------------------------------------------------------------------------------
+
+// How does a web server works in spring boot?
+
+// -- User sends a request
+// CLIENT -> HTTP GET '/student' -> SPRING BOOT WEB SERVER
+
+// -- Step 1: Server receives request
+// RECEIVE REQUEST: GET /student
+
+// -- Step 2: DispatcherServlet finds the correct controller method
+// MATCH: @GetMapping("/student") in StudentController
+
+// -- Step 3: Controller method is executed
+// EXECUTE:
+//     CALL getStudent()  -- business logic request
+//     -> SERVICE layer
+//         -> REPOSITORY layer
+//             -> SQL QUERY: SELECT * FROM student WHERE id = 1;
+
+// -- Step 4: Repository returns data to Service
+// RETURN: Student(id=1, name='Mike', email='mike@gmail.com')
+
+// -- Step 5: Service sends data to Controller
+// RETURN TO CONTROLLER: StudentDto(1, 'Mike', 'mike@gmail.com')
+
+// -- Step 6: Controller sends response to client (JSON)
+// SEND RESPONSE:
+// {
+//    "id": 1,
+//    "name": "Mike",
+//    "email": "mike@gmail.com"
+// }
+
+// ---------------------------------------------------------------------------------------
+
+// In short:
+// 1. User → sends request.
+// 2. DispatcherServlet → routes request to the right method.
+// 3. Controller → calls Service.
+// 4. Service → calls Repository.
+// 5. Repository → runs SQL on the database.
+// 6. Data → flows back up and is sent as JSON to the user.
+
+// ---------------------------------------------------------------------------------------
+
+// Set up a Postgres Database
+// 1. Go to PostgresSql website.
+// 2. And go to download section and download it.
+// 3. for windows, click 'Download the installer' and Install. 
+// 4. And my PORT is 5432.
+// 5. Password is 12345.
+// 6. And PgBouncer Listening PORT is 6432.
 
 // ---------------------------------------------------------------------------------------
