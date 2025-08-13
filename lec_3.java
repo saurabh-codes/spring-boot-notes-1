@@ -43,6 +43,20 @@
 
 // ---------------------------------------------------------------------------------------
 
+// DTO (Data Transfer Object)
+// - DTO is just a simple Java class used to carry data between different parts of your
+//   program. especially between the server and the client.
+
+// - Why we use DTO:
+// 1. Sometimes you don’t want to send the whole Entity (database object) to the user.
+// 2. You create a DTO to send only the required fields or in a specific format.
+// 3. It keeps your database structure hidden and makes data transfer safer and cleaner.
+
+// Note:- A DTO is like a delivery box it carries only the items you choose to put 
+//        inside, not everything from your store (database).
+
+// ---------------------------------------------------------------------------------------
+
 // JPA
 // - JPA (Java Persistence API) → A set of rules that says how Java classes should be 
 //   saved, read, updated, or deleted from a database. It’s just the guideline, not the
