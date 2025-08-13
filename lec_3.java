@@ -90,6 +90,27 @@
 // ---------------------------------------------------------------------------------------
 
 // Note:-
+// 1. Hibernate is an ORM.
+// 2. ORM = Object-Relational Mapping
+
+// 3. It’s a technique that lets you work with Java objects instead of writing SQL 
+//    queries directly.
+
+// 4. The ORM tool takes care of converting your Java objects ↔ database tables.
+
+// ---------------------------------------------------------------------------------------
+
+// Example:-
+
+// User user = new User(1L, "John", "john@email.com");
+// session.save(user); 
+
+// Hibernate will run:-
+// INSERT INTO user (id, name, email) VALUES (1, 'John', 'john@email.com');
+
+// ---------------------------------------------------------------------------------------
+
+// Note:-
 // 1. You write code using JPA style (like @Entity, @Repository, save() etc).
 
 // 2. Spring Boot uses Hibernate under the hood to make it actually work with the
