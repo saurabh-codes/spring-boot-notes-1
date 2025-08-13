@@ -57,6 +57,21 @@
 
 // ---------------------------------------------------------------------------------------
 
+// DispatcherServlet
+// - The DispatcherServlet is like the traffic police for web requests.
+// - Every request from the user first comes to the DispatcherServlet.
+// - Its job is to decide where to send the request to the correct Controller method.
+
+// - After the Controller finishes, the DispatcherServlet also sends the response back
+//   to the user.
+
+// Example:-
+
+// User → DispatcherServlet → Controller → Service → Repository → Database
+//      ← DispatcherServlet ← Controller ← Service ← Repository
+
+// ---------------------------------------------------------------------------------------
+
 // JPA
 // - JPA (Java Persistence API) → A set of rules that says how Java classes should be 
 //   saved, read, updated, or deleted from a database. It’s just the guideline, not the
