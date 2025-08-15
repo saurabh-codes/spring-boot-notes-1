@@ -329,3 +329,38 @@
 // 4. Export settings → Control what happens when creating a release archive.
 
 // ---------------------------------------------------------------------------------------
+
+// Run Spring Boot Application
+// 1. Run and go on url "http://localhost:8080/".
+
+// 2. Output will be: Whitelabel Error Page
+
+// 3. Beacuse there is no route for '/' and 'Error'.
+
+// ---------------------------------------------------------------------------------------
+
+// Creating Simple API
+
+// Step 1:- Create "Home" Class
+
+// @RestController
+// public class Home {
+
+//     @GetMapping
+//     public String greet(){
+//         return "Hello world from Spring Boot!";
+//     }
+
+//     @GetMapping("/home")
+//     public String home(){
+//         return "Welcome to Home Page!";
+//     }
+// }
+
+// Step 2:- Run and go on url "http://localhost:8080/"
+//          output will be: Hello world from Spring Boot!
+
+// Step 3:- Now, go on url "http://localhost:8080/home"
+//          output will be: Welcome to Home Page!
+
+// ---------------------------------------------------------------------------------------
