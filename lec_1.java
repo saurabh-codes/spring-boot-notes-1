@@ -364,3 +364,109 @@
 //          output will be: Welcome to Home Page!
 
 // ---------------------------------------------------------------------------------------
+
+// ---------- Internal working of Spring Boot ----------
+
+// ---------------------------------------------------------------------------------------
+
+// 1. Main Class with @SpringBootApplication
+// - @SpringBootApplication is an annotation in Spring Boot used on the main class
+//   of your application. It tells Spring Boot “This is the starting point of my
+//   application.”
+
+// - @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+
+// - SpringApplication.run() “Bootstraps the Spring context” basically means starting
+//   and setting up the Spring container so it can manage all your application’s beans.
+
+// ---------------------------------------------------------------------------------------
+
+// 2. Bootstrapping SpringApplication.run()
+// - When you call this method, Spring Boot starts the application:
+
+// A. Creates Application Context (a special container)
+// - Spring creates an IoC container (ApplicationContext).
+// - This manages all beans (objects) in the application.
+
+
+// B. Environment Setup
+// - Reads properties (application.properties / application.yml).
+// - Sets profiles (dev/test/prod).
+// - Prepares logging system.
+
+
+// C. Banner Display
+// - Shows the Spring Boot banner/logo in console.
+
+// ---------------------------------------------------------------------------------------
+
+// 3. Component Scanning
+// - Spring scans your base package (com.example.myapp).
+
+// - Finds classes with annotations like:
+// A. @Component
+// B. @Service
+// C. @Repository
+// D. @Controller / @RestController
+
+// - These are registered as beans inside the container.
+
+// ---------------------------------------------------------------------------------------
+
+// 4. Auto-Configuration
+// - Spring Boot checks the classpath and loads configurations automatically.
+// - Based on the libraries you added, Spring Boot automatically configures things.
+
+// Example:-
+// A. If spring-boot-starter-web is present → configures Tomcat, DispatcherServlet, 
+//    Spring MVC.
+
+// B. If spring-boot-starter-data-jpa is present → It configures Hibernate + Database
+//    connection.
+
+// ---------------------------------------------------------------------------------------
+
+// 5. Bean Creation & Dependency Injection
+// - Spring Boot creates all required beans.
+// - Their dependencies are injected using Spring IoC (Inversion of Control).
+
+// ---------------------------------------------------------------------------------------
+
+// 6. Embedded Server Starts (for Web Apps)
+// - An embedded Tomcat/Jetty/Undertow server starts automatically.
+// - Registers DispatcherServlet to handle incoming HTTP requests.
+// - Now the app is ready to accept HTTP requests.
+
+// ---------------------------------------------------------------------------------------
+
+// 7. Handling Requests
+// - When a request comes (like http://localhost:8080/users):
+
+// 1. Request goes to DispatcherServlet.
+// 2. DispatcherServlet checks which @Controller/@RestController method matches.
+// 3. Calls that method and gets a response.
+// 4. Sends response back to client (JSON/XML/HTML).
+
+// ---------------------------------------------------------------------------------------
+
+// Internal Working Flow
+
+// @SpringBootApplication →
+// SpringApplication.run() →
+// Creates ApplicationContext →
+// Loads application.properties →
+// Component Scan →
+// Auto-Configuration →
+// Beans Created & Dependencies Injected →
+// Embedded Server Starts →
+// DispatcherServlet Registered →
+// Handles Requests →
+// Application Runs
+
+// ---------------------------------------------------------------------------------------
+
+// Note:- Spring Boot internally creates a Spring container, auto-configures required
+//        components, starts an embedded server, and manages everything automatically,
+//        so you can just focus on business logic.
+
+// ---------------------------------------------------------------------------------------
