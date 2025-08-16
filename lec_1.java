@@ -49,57 +49,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// ---------- Key Features of Spring ----------
-
-// ---------------------------------------------------------------------------------------
-
-// 1. Inversion of Control (IoC)
-// - Normally, you create objects with new in Java.
-
-// - In Spring, you just describe what objects you need, and Spring creates and gives
-//   them to you.
-
-// - This is called Dependency Injection (DI).
-
-// ---------------------------------------------------------------------------------------
-
-// Example:- In normal Java
-
-// UserService service = new UserService(); 
-
-// Note:- You control object creation
-
-// ---------------------------------------------------------------------------------------
-
-// Example:- In Spring Boot with IoC
-
-// @Autowired
-// UserService service; 
-
-// Note:- Spring controls object creation & gives it to you
-
-// ---------------------------------------------------------------------------------------
-
-// 2. Aspect-Oriented Programming (AOP)
-// - AOP is a way to add extra code (like logging, security checks, performance 
-//   monitoring) to many methods without writing it inside every method.
-
-// - It’s like putting a filter in front of your methods. this filter can run before,
-//   after, or around them.
-
-// - This keeps your code clean and focused.
-
-// ---------------------------------------------------------------------------------------
-
-// 3. Spring MVC
-// - Spring MVC is Model-View-Controller framework inside Spring for building web 
-//   applications and REST APIs.
-
-// - Handles HTTP requests and responses in an organized way.
-
-// ---------------------------------------------------------------------------------------
-
-// 4. Spring Boot
+// Spring Boot
 // - Spring Boot is a Java framework that makes it very easy to create Spring-based
 //   applications without doing a lot of setup.
 
@@ -116,17 +66,161 @@
 
 // ---------------------------------------------------------------------------------------
 
-// 5. Spring Security
-// - Makes adding authentication & authorization easy.
-// - Supports OAuth, JWT, and many security standards.
+// Inversion of Control (IoC)
+// - Normally, you create objects with new keyword in Java.
+
+// - IoC means the control of object creation and management is given to the 
+//   Spring container.
+
+// - Spring Boot automatically creates and manages beans, and injects them where
+//   needed (via Dependency Injection).
 
 // ---------------------------------------------------------------------------------------
 
-// 6. Spring Data
-// - Simplifies database operations.
+// How IoC works in Spring Boot
+// - Spring Boot uses the Spring IoC Container (backed by ApplicationContext).
 
-// - You can write a repository interface and Spring will generate the implementation 
-//   automatically.
+// - When the app starts:
+// - It scans your code for annotations (@Component, @Service, @Repository, @Controller).
+// - Creates objects (beans) of those classes.
+// - Stores them inside the container.
+// - Whenever another bean needs one → Spring injects it automatically.
+
+// ---------------------------------------------------------------------------------------
+
+// Example:- Without IoC
+
+// class Engine {
+//     void start() {
+//         System.out.println("Engine started...");
+//     }
+// }
+
+// class Car {
+//     private Engine engine = new Engine(); // YOU create the dependency
+
+//     void drive() {
+//         engine.start();
+//         System.out.println("Car is running...");
+//     }
+// }
+
+// Problem:-  Car is tightly coupled with Engine, hard to test and maintain.
+
+// ---------------------------------------------------------------------------------------
+
+// Example:- With IoC (Spring Boot)
+
+// Step 1:- In "Engine" class 
+
+// @Component
+// class Engine {
+//     void start() {
+//         System.out.println("Engine started...");
+//     }
+// }
+
+
+// ---------- Step 2:- In "CarService" class ----------
+
+// @Service
+// class CarService {
+//     private final Engine engine;
+
+//     public CarService(Engine engine) {  // Spring injects Engine automatically
+//         this.engine = engine;
+//     }
+
+//     public void drive() {
+//         engine.start();
+//         System.out.println("Car is running...");
+//     }
+// }
+
+// Note:-
+// 1. You don’t write new Engine().
+// 2. Spring’s IoC Container creates Engine and injects it into CarService.
+
+
+// ---------- Step 3:- In main class ----------
+
+// ApplicationContext context = SpringApplication.run(MyDemoApplication.class, args);
+// Home home = context.getBean(Home.class);
+// home.drive();
+
+// ---------------------------------------------------------------------------------------
+
+// IoC vs DI
+// - IoC (Inversion of Control) → Big principle. Objects are created/managed by 
+//   container.
+
+// - DI (Dependency Injection) → Practical way of implementing IoC. Spring injects
+//   dependencies (@Autowired) into classes.
+
+// So:-
+// 1. IoC = Concept
+// 2. DI = Technique to achieve IoC
+
+// ---------------------------------------------------------------------------------------
+
+// @Autowired Annotation
+// - It is used for Dependency Injection (DI).
+// - It tells Spring "Hey Spring, please give me (inject) the object of this
+//   class here automatically."
+
+// ---------------------------------------------------------------------------------------
+
+// Spring Container (a.k.a ApplicationContext)
+// - The Spring Container is the engine of Spring.
+
+// - It is responsible for:
+// 1. Creating beans (objects).
+// 2. Managing their lifecycle (create → inject dependencies → destroy).
+// 3. Injecting dependencies (DI).
+// 4. Storing beans in memory, so you can retrieve them.
+
+// ---------------------------------------------------------------------------------------
+
+// For Example:- In Spring Boot
+
+// @SpringBootApplication
+// public class DemoApp {
+//     public static void main(String[] args) {
+//         ApplicationContext context =
+//             SpringApplication.run(DemoApp.class, args);
+
+//         Car car = context.getBean(Car.class); // Bean comes from container
+//         car.drive();
+//     }
+// }
+
+// Note:- Here, ApplicationContext is the Spring Container.
+
+// ---------------------------------------------------------------------------------------
+
+// Aspect-Oriented Programming (AOP)
+// - AOP says Write common code only once, in a separate place (called an 
+//   Aspect), and I’ll apply it automatically wherever needed.
+
+// - AOP in Spring Boot lets you separate cross-cutting concerns (like logging, 
+//   security, transactions) from your main business logic.
+
+// - You write them once as Aspects, and Spring applies them automatically to
+//   your methods.
+
+// - It’s like putting a filter in front of your methods. this filter can run before,
+//   after, or around them.
+
+// - This keeps your code clean and focused.
+
+// ---------------------------------------------------------------------------------------
+
+// Types of Advice in AOP
+// 1. @Before → Run before method execution.
+// 2. @After → Run after method execution (always).
+// 3. @AfterReturning → Run only if method returns successfully.
+// 4. @AfterThrowing → Run if method throws an exception.
+// 5. @Around → Run before and after method (most powerful, can even stop execution).
 
 // ---------------------------------------------------------------------------------------
 
