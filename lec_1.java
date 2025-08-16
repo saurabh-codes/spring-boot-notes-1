@@ -164,6 +164,12 @@
 
 // ---------------------------------------------------------------------------------------
 
+// Note:-
+// 1. Dependency = one class needs another.
+// 2. For Example:- Car needs Engine.
+
+// ---------------------------------------------------------------------------------------
+
 // @Autowired Annotation
 // - It is used for Dependency Injection (DI).
 // - It tells Spring "Hey Spring, please give me (inject) the object of this
