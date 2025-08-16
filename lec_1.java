@@ -127,7 +127,8 @@
 // class CarService {
 //     private final Engine engine;
 
-//     public CarService(Engine engine) {  // Spring injects Engine automatically
+//     Note:- Spring injects Engine using Constructor DI
+//     public CarService(Engine engine) {  
 //         this.engine = engine;
 //     }
 
