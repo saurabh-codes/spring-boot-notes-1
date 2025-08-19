@@ -464,6 +464,30 @@
 // - DBeaver is a database management tool (GUI) that helps developers, testers, and
 //   DB admins connect to and manage different databases easily.
 
+// 1. Go to Website "https://dbeaver.io/" and download it.
+
+// 2. Now, click on the 'DBeaver Sample Database(SQLite)' and download the
+//    driver.
+
+// 3. Now, click on the 'New Database connection' button and select the
+//    'PostgreSQL' Database.
+
+// 4. Now, click on url and add 'postgres' username.
+
+// 5. NNow, add the password '12345'.
+
+// 6. Now, click on 'Test Connection' and download the driver.
+
+// 7. And output will be: Connected and click on 'finish' button.
+
+// 8. Now, you will be see 'postgres' connection (server).
+
+// 9. Now, open it 'Databases' folder mil jayega aur uske andar
+//    'postgres' database show hoga.
+
+// 10. Now, click on 'Databases' folder and make a new database
+//     named 'myData'.
+
 // ---------------------------------------------------------------------------------------
 
 // Connecting to Database (Postgrew SQL)
