@@ -3,6 +3,59 @@
 
 // ---------------------------------------------------------------------------------------
 
+// What is REST?
+// - REST stands for Representational State Transfer.
+
+// - It’s an architectural style (a way of designing software) used to 
+//   build web services.
+
+// - In REST, we use HTTP (the same protocol used by browsers) to send 
+//   and receive data between a client (like frontend, mobile app, Postman,
+//   etc.) and a server (backend application).
+
+// ---------------------------------------------------------------------------------------
+
+// What is an API?
+// - API = Application Programming Interface
+// - It’s a way for two applications to talk to each other.
+
+// ---------------------------------------------------------------------------------------
+
+// REST API = REST + API
+// - A REST API is an API that follows REST principles.
+
+// - It allows applications to communicate over the internet using HTTP
+//   methods.
+
+// ---------------------------------------------------------------------------------------
+
+// HTTP Methods in REST API
+
+// 1. GET → Fetch data (like reading a record)
+// 2. POST → Create new data
+// 3. PUT → Update existing data (replace it fully)
+// 4. PATCH → Update partially
+// 5. DELETE → Remove data
+
+// ---------------------------------------------------------------------------------------
+
+// REST API Example
+// - Suppose you have a Student Management System.
+
+// | HTTP Method | Endpoint      | Meaning                  |
+// | ----------- | ------------- | ------------------------ |
+// | **GET**     | `/students`   | Get all students         |
+// | **GET**     | `/students/1` | Get student with id=1    |
+// | **POST**    | `/students`   | Add a new student        |
+// | **PUT**     | `/students/1` | Update student with id=1 |
+// | **DELETE**  | `/students/1` | Delete student with id=1 |
+
+
+// Note:- When you type a URL or make an API call, the server responds with 
+//        JSON or XML, usually JSON nowadays.
+
+// ---------------------------------------------------------------------------------------
+
 // Spring MVC
 // - Spring MVC (Model–View–Controller) is a framework provided by the Spring
 //   Framework for building web applications.
