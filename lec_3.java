@@ -116,10 +116,17 @@
 
 // ---------------------------------------------------------------------------------------
 
+// Step 7:- Now, iss 'StudentRepository' ko Controller (StudentController)
+//          se connect karenge.
+
+// ---------------------------------------------------------------------------------------
+
 // Note:-
 // 1. ab maan lo 'student' create karna hai, toh create karne ke
 //    liye ek alag mapping bananni padegi.
 
 // 2. And get karne ke liye alag mapping.
+
+// 3. Suppose mujhe saare ke saare student get karne hai.
 
 // ---------------------------------------------------------------------------------------
