@@ -356,6 +356,23 @@
 
 // ---------------------------------------------------------------------------------------
 
+// @Controller Annotation
+// - Marks a class as a controller that can handle web requests.
+// - It is used when you want to return web pages (views) in your application.
+
+// - If you open http://localhost:8080/home
+//   Spring will call this method and load the home.html page.
+
+// ---------------------------------------------------------------------------------------
+
+// @ResponseBody Annotation
+// - @ResponseBody is method-level (most common), but can also be applied at
+//   class-level to affect all methods.
+
+// - return value is written directly into response body (text/JSON).
+
+// ---------------------------------------------------------------------------------------
+
 // @RestController Annotation
 // - @RestController marks a class as a controller that handles web requests and sends
 //   back data (usually JSON), not HTML pages.
