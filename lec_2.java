@@ -481,7 +481,7 @@
 
 // 4. Now, click on url and add 'postgres' username.
 
-// 5. NNow, add the password '12345'.
+// 5. Now, add the password '12345'.
 
 // 6. Now, click on 'Test Connection' and download the driver.
 
