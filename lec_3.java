@@ -33,7 +33,7 @@
 // }
 
 // Note:-
-// 1. Entity ki help se Postgresql ke Database ke table ke
+// 1. Entity ki help se Postgresql Database ke table ke
 //    saath connect kar paoge.
 
 // 2. Database ke andar ek table ban jayegi 'Student' ke naam se.
