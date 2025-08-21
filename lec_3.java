@@ -48,10 +48,7 @@
 
 // Step 5:- Now, run the Application.
 
-// 1. ddl-auto=update kar rakha hai 'application.properties' mey, toh
-//    'entity' class banane ke baad table apne aap update ho jayegi.
-
-// 2. Application run hone ke baad logs mey query dhikegi:
+// 1. Application run hone ke baad logs mey query dhikegi:
 
 // Hibernate: 
 //     create table student (
@@ -73,8 +70,18 @@
 // ---------------------------------------------------------------------------------------
 
 // Note:-
-// 1. Now, Object ki Relation se mapping ho gyi hai. isi ko 'ORM' (Object-Relational
-//    Mapping)  kahte hai.
+// 1. Mapping means connect karna. like:
+// a. Object world (Java classes, objects, fields)
+// b. Relational world (Database tables, rows, columns)
+
+// 2. ek relation banana Java ke object ke fields aur database ke 
+//    columns ke beech. Yehi ORM ka core concept hai.
+
+
+// Note:-
+// 1. Now, Object ko Relation se mapping kar diya hai.
+
+// 2. Ye process hi ORM (Object Relational Mapping) kehlata hai.
 
 // 2. Aur iske liye "Hibernate" ki use behind the sence hoti hai. and ye Spring
 //    Data JPA use kar leta hai.
@@ -92,7 +99,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// Step 7:- In 'controller' package, create 'StudentRepository' interface.
+// Step 7:- In 'repository' package, create 'StudentRepository' interface.
 
 // @Repository
 // public interface StudentRepository extends JpaRepository<Student, Long> {

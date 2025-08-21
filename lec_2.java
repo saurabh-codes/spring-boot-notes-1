@@ -107,16 +107,33 @@
 
 // ---------------------------------------------------------------------------------------
 
+// DispatcherServlet
+// - The DispatcherServlet is like the traffic police for web requests.
+// - Every request from the user first comes to the DispatcherServlet.
+
+// - Its job is to decide where to send the request to the correct Controller 
+//   method.
+
+// - After the Controller finishes, the DispatcherServlet also sends the 
+//   response back to the user.
+
+// Example:-
+
+// User → DispatcherServlet → Controller → Service → Repository → Database
+//      ← DispatcherServlet ← Controller ← Service ← Repository
+
+// ---------------------------------------------------------------------------------------
+
 // Controller
-// - A Controller in Spring Boot is like a receptionist in an office. it receives requests
-//   from users (via the browser or API call), decides what needs to be done, and then sends
-//   back the right response.
+// - A Controller in Spring Boot is like a receptionist in an office. it receives
+//   requests from users (via the browser or API call), decides what needs to be
+//   done, and then sends back the right response.
 
-// - Controllers usually have annotations like @RestController or @Controller and handle
-//   URLs defined with @RequestMapping or @GetMapping, etc.
+// - Controllers usually have annotations like @RestController or @Controller
+//   and handle URLs defined with @RequestMapping or @GetMapping, etc.
 
-// Note:- The controller package is just where you store your classes that handle web 
-//        requests and responses.
+// Note:- The controller package is just where you store your classes that 
+//        handle web requests and responses.
 
 // ---------------------------------------------------------------------------------------
 
@@ -126,11 +143,11 @@
 // 2. The service contains the actual business logic. the main work your application 
 //    needs to do.
 
-// 3. It talks to the repository (database layer) if data is needed, processes it, and
-//    then sends the result back to the controller.
+// 3. It talks to the repository (database layer) if data is needed, processes
+//    it, and then sends the result back to the controller.
 
-// 4. Services are usually marked with the @Service annotation so Spring Boot knows they
-//    are special “logic-handling” classes.
+// 4. Services are usually marked with the @Service annotation so Spring Boot 
+//    knows they are special “logic-handling” classes.
 
 // ---------------------------------------------------------------------------------------
 
@@ -142,14 +159,14 @@
 // - We mark it with the @Entity annotation so Spring Boot (via JPA/Hibernate) knows:
 //   “This class should be stored in the database.”
 
-// Note:- An Entity is just a blueprint for a database table, and each object you create
-//        from it is a row in that table.
+// Note:- An Entity is just a blueprint for a database table, and each object
+//        you create from it is a row in that table.
 
 // ---------------------------------------------------------------------------------------
 
 // DTO (Data Transfer Object)
-// - DTO is just a simple Java class used to carry data between different parts of your
-//   program. especially between the server and the client.
+// - DTO is just a simple Java class used to carry data between different parts 
+//   of your program. especially between the server and the client.
 
 // - Why we use DTO:
 // 1. Sometimes you don’t want to send the whole Entity (database object) to the user.
@@ -158,21 +175,6 @@
 
 // Note:- A DTO is like a delivery box it carries only the items you choose to put 
 //        inside, not everything from your store (database).
-
-// ---------------------------------------------------------------------------------------
-
-// DispatcherServlet
-// - The DispatcherServlet is like the traffic police for web requests.
-// - Every request from the user first comes to the DispatcherServlet.
-// - Its job is to decide where to send the request to the correct Controller method.
-
-// - After the Controller finishes, the DispatcherServlet also sends the response back
-//   to the user.
-
-// Example:-
-
-// User → DispatcherServlet → Controller → Service → Repository → Database
-//      ← DispatcherServlet ← Controller ← Service ← Repository
 
 // ---------------------------------------------------------------------------------------
 
@@ -193,24 +195,25 @@
 
 // ---------------------------------------------------------------------------------------
 
-// Hibernate
-// - The actual worker that follows JPA’s rules and does the real job of talking to
-//   the database.
+// Object–Relational Mapping
+// 1. Object → Java class/object (Student, Employee, Product, etc.)
+// 2. Relational → Database tables (rows & columns)
+// 3. Mapping → Relation banana in dono ke beech
+
+// ---------------------------------------------------------------------------------------
+
+// Hibernate (ORM)
+// - Hibernate is an ORM.
+
+// - The actual worker that follows JPA’s rules and does the real job
+//   of talking to the database.
+
+// - The ORM tool takes care of converting your Java objects ↔ database
+//   tables.
 
 // In short:-
 // 1. JPA = What to do
 // 2. Hibernate = How to do it
-
-// ---------------------------------------------------------------------------------------
-
-// Note:-
-// 1. Hibernate is an ORM.
-// 2. ORM = Object-Relational Mapping
-
-// 3. It’s a technique that lets you work with Java objects instead of writing SQL 
-//    queries directly.
-
-// 4. The ORM tool takes care of converting your Java objects ↔ database tables.
 
 // ---------------------------------------------------------------------------------------
 
@@ -277,22 +280,7 @@
 
 // ---------------------------------------------------------------------------------------
 
-// Step 1:- Create package named 'controller, entity, repository and service'.
-
-// ---------------------------------------------------------------------------------------
-
-// Flow of Project Structure (controller + entity + repository + service )
-// 1. controller layer ke paas hamari request jayengi.
-
-// 2. uske baad 'controller' ek model create karega and model create karne ke liye
-//    'service' ka use karega.
-
-// 3. 'service' internally entity and repository ka use karegi taaki vah model generate
-//    kar sake.
-
-// 4. and uss model ko 'controller' ke paas bhej degi.
-
-// 5. and 'controller' iss model ka json bana kr return krega.
+// Step 1:- Create package named 'controller, entity, repository, dto and service'.
 
 // ---------------------------------------------------------------------------------------
 
@@ -315,16 +303,14 @@
 // 3. inke beech jo bhi data ka aapas mey sharing hota hai, vo 'DTO' ki help se hota hai.
 // 4. DTO ko 'data transfer object' bolte hai and ye normal java class hoti hai.
 // 5. jiski help se 'data' ko Presentation Layer se Service Layer mey bhejte hai.
-
-// Note:-
-// 1. Service Layer se Data-access Layer tak 'data' ka transfer Entity ki help se hota hai.
-// 2. Entity ko model bhi kahte hai.
-// 3. Data-access Layer Database se baat karti hai.
-// 4. and Data-access Layer Database se 'data' le kar aayegi.
-// 5. and uss data ko 'Entity' form mey vapas bhejegi 'Service Layer' ko.
-// 6. and 'Service Layer' data ko 'Presentation Layer' mey bhejega 'DTO' form mey.
-// 7. and 'Presentation Layer' data ko 'JSON' format mey Client ko response bhejega.
-// 8. and 'DTO' form ko 'JSON' form mey 'http message converter' convert kar raha hai.
+// 6. Service Layer se Data-access Layer tak 'data' ka transfer Entity ki help se hota hai.
+// 7. Entity ko model bhi kahte hai.
+// 8. Data-access Layer Database se baat karti hai.
+// 9. and Data-access Layer Database se 'data' le kar aayegi.
+// 10. and uss data ko 'Entity' form mey vapas bhejegi 'Service Layer' ko.
+// 11. and 'Service Layer' data ko 'Presentation Layer' mey bhejega 'DTO' form mey.
+// 12. and 'Presentation Layer' data ko 'JSON' format mey Client ko response bhejega.
+// 13. and 'DTO' form ko 'JSON' form mey 'http message converter' convert kar raha hai.
 
 // ---------------------------------------------------------------------------------------
 
@@ -338,38 +324,6 @@
 // Note:- It keeps your code organized, flexible, reusable, and easy to test. just like
 //        a well-run restaurant where waiters, chefs, and the store all have their own
 //        clear roles.
-
-// ---------------------------------------------------------------------------------------
-
-// Three Layered Architecture Diagram
-
-// [ User / Browser ]
-//         |
-//         v
-// +---------------------+
-// |   Controller Layer  |  <-- Handles requests & responses
-// +---------------------+
-//         |
-//         v
-// +---------------------+
-// |    Service Layer    |  <-- Business logic (rules, calculations)
-// +---------------------+
-//         |
-//         v
-// +---------------------+
-// |  Repository Layer   |  <-- Talks to the database
-// +---------------------+
-//         |
-//         v
-// [  Database  ]
-
-
-// Flow:-
-// 1. User sends a request → Controller
-// 2. Controller sends to → Service
-// 3. Service asks → Repository
-// 4. Repository talks to → Database
-// 5. Data comes back the same way in reverse.
 
 // ---------------------------------------------------------------------------------------
 
