@@ -74,9 +74,6 @@
 // a. Object world (Java classes, objects, fields)
 // b. Relational world (Database tables, rows, columns)
 
-// 2. ek relation banana Java ke object ke fields aur database ke 
-//    columns ke beech. Yehi ORM ka core concept hai.
-
 
 // Note:-
 // 1. Now, Object ko Relation se mapping kar diya hai.
